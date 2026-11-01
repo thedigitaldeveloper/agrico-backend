@@ -27,7 +27,9 @@ const COMMON_CSS = `
   box-sizing: border-box;
 }
 .ag-eyebrow {
-  display: inline-block;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -162,11 +164,12 @@ const COMMON_CSS = `
 }
 .ag-publication-table table {
   width: 100% !important;
+  table-layout: auto !important;
   border-collapse: collapse !important;
   text-align: left !important;
   font-size: 13.5px !important;
   line-height: 1.65 !important;
-  min-width: 600px !important;
+  min-width: 0 !important;
   margin: 0 !important;
 }
 .ag-publication-table thead th {
@@ -176,10 +179,11 @@ const COMMON_CSS = `
   padding: 13px 16px !important;
   border-bottom: 2px solid #ccd8c2 !important;
   border-right: 1px solid #e1ecde !important;
-  white-space: nowrap !important;
-  word-break: keep-all !important;
-  overflow-wrap: normal !important;
-  font-size: 12px !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+  font-size: 11.5px !important;
+  line-height: 1.45 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.04em !important;
 }
@@ -192,10 +196,13 @@ const COMMON_CSS = `
   border-bottom: 1px solid #edf4eb !important;
   border-right: 1px solid #edf4eb !important;
   vertical-align: top !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
 }
 .ag-publication-table tbody th {
-  width: 230px !important;
-  min-width: 195px !important;
+  width: 26% !important;
+  min-width: 165px !important;
   font-weight: 650 !important;
   color: #123d2e !important;
   background: #fbfdfa !important;
