@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_home_intent_tabs",
+  "info": {
+    "displayName": "Intent Tab",
+    "icon": "filter",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "string",
+      "required": true
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "note": {
+      "type": "string"
+    },
+    "filter_criteria": {
+      "type": "enumeration",
+      "enum": [
+        "postgraduate",
+        "undergraduate",
+        "tech-ai",
+        "working-professional",
+        "managers-leaders",
+        "doctorate",
+        "all"
+      ],
+      "default": "all"
+    }
+  }
+}

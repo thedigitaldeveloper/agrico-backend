@@ -1,0 +1,85 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mentor_profiles",
+  "info": {
+    "singularName": "mentor-profile",
+    "pluralName": "mentor-profiles",
+    "displayName": "Mentor Profile",
+    "description": "Public profile for an advisor. Publishing one is what makes a mentor bookable."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "display_name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "display_name",
+      "required": true
+    },
+    "headline": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "bio": {
+      "type": "text",
+      "maxLength": 4000
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "experience_years": {
+      "type": "integer",
+      "min": 0,
+      "max": 60
+    },
+    "languages": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "is_accepting_bookings": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "session_minutes": {
+      "type": "integer",
+      "default": 30,
+      "min": 15,
+      "max": 120,
+      "required": true
+    },
+    "availability": {
+      "type": "component",
+      "repeatable": true,
+      "component": "mentor.availability-slot"
+    },
+    "streams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::stream.stream"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

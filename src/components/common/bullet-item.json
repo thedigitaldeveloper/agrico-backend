@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_common_bullet_items",
+  "info": {
+    "displayName": "Bullet Item",
+    "description": "One entry of a flat list, addressable on its own."
+  },
+  "options": {},
+  "attributes": {
+    "text": { "type": "string" },
+    "icon": { "type": "string" }
+  }
+}

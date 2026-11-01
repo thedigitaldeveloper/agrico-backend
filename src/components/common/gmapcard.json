@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_common_gmapcards",
+  "info": {
+    "displayName": "Gmapcard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "link": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

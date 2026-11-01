@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_common_videocards",
+  "info": {
+    "displayName": "Videocard"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "embedded_video_link": {
+      "type": "string"
+    },
+    "desktop_image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "mobile_image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_home_section_headers",
+  "info": {
+    "displayName": "Section Header",
+    "icon": "heading",
+    "description": "Configurable section header, subtitle, badges and cta"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "badges": {
+      "type": "json"
+    },
+    "cta_label": {
+      "type": "string"
+    },
+    "cta_link": {
+      "type": "string"
+    }
+  }
+}

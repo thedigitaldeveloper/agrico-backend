@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_home_course_finder_configs",
+  "info": {
+    "displayName": "Course Finder Config",
+    "icon": "search",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "default": "Dynamic Program Discovery"
+    },
+    "heading": {
+      "type": "string",
+      "default": "Explore Online Programs by Goal & Stream"
+    },
+    "description": {
+      "type": "text"
+    },
+    "feature_badges": {
+      "type": "json"
+    },
+    "budget_caps": {
+      "type": "json"
+    },
+    "tabs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.intent-tab"
+    }
+  }
+}

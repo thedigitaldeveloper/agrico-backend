@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_common_notifications",
+  "info": {
+    "displayName": "Notification"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_common_highlight_lists",
+  "info": {
+    "displayName": "Highlight List",
+    "description": "A titled group of key/value tiles, scoped to one section rather than the whole entity."
+  },
+  "options": {},
+  "attributes": {
+    "name": { "type": "string" },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.highlights"
+    }
+  }
+}

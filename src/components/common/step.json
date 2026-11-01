@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_common_steps",
+  "info": {
+    "displayName": "Step",
+    "description": "One step of an ordered procedure."
+  },
+  "options": {},
+  "attributes": {
+    "position": { "type": "integer" },
+    "title": { "type": "string" },
+    "description": { "type": "text" }
+  }
+}

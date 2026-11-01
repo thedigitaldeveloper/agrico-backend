@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_contact_rp_contacts",
+  "info": {
+    "displayName": "Rp Contact"
+  },
+  "options": {},
+  "attributes": {
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.contact-card"
+    }
+  }
+}

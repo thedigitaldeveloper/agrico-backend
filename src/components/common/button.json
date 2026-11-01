@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_common_buttons",
+  "info": {
+    "displayName": "Button",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": [
+        "self",
+        "_blank"
+      ]
+    },
+    "referral_type": {
+      "type": "string",
+      "default": "noopener"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "link",
+        "email",
+        "mobile",
+        "external"
+      ]
+    }
+  }
+}

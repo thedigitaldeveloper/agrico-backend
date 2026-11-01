@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_home_post_selections",
+  "info": {
+    "displayName": "Selected post",
+    "description": "One published item in the chosen display order."
+  },
+  "options": {},
+  "attributes": {
+    "post": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::blog.blog"
+    }
+  }
+}

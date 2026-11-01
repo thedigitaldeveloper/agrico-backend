@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_common_citywises",
+  "info": {
+    "displayName": "Citywise"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "cities": {
+      "displayName": "citycard",
+      "type": "component",
+      "repeatable": true,
+      "component": "common.citycard"
+    }
+  }
+}

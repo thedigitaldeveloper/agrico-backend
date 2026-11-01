@@ -1,0 +1,73 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+const root=process.cwd();if(path.basename(root)!=='rs-education-backend')throw new Error('RS repository required.');
+const out=path.join(root,'exports/rs-catalogue-import');const graph=JSON.parse(await fs.readFile(path.join(out,'reachable-source-graph.json'),'utf8'));const units=JSON.parse(await fs.readFile(path.join(out,'editorial-units.json'),'utf8'));
+const rules=[
+ ['This program bridges','This programme connects'],['This program equips','This programme gives'],['This program provides','This programme offers'],['This program trains','This programme helps prepare'],['This program follows','This programme follows'],['This degree empowers students to','This degree enables students to'],
+ ['is an accredited, future-ready higher education program designed to provide students, working professionals, and domain executives with deep functional mastery, analytical frameworks, and practical execution toolkits in','is an accredited higher education programme that develops subject knowledge, analytical methods and practical skills in'],
+ ['is one of the most sought-after postgraduate degrees in India and globally, engineered specifically for aspiring financial leaders, investment analysts, and corporate treasurers.','is a postgraduate degree for learners interested in financial leadership, investment analysis and corporate treasury roles.'],
+ ['The table below outlines the estimated total tuition fees and per-semester instalment plans across top accredited online universities offering this specialisation:','Compare the estimated total tuition fees and semester instalments for this specialisation in the table below:'],
+ ['curriculum is structured across sequential semesters covering foundational business/tech concepts, advanced specialised electives, and a hands-on master\'s capstone project.','curriculum progresses through foundational business/tech topics, specialised electives and a practical master\'s capstone project.'],
+ ['Designed for engineers, business analysts, domain managers, and ambitious graduates,','Intended for engineers, business analysts, domain managers and graduates,'],
+ ['is designed for modern software engineers, IT infrastructure specialists, and system architects who want to build, deploy, and maintain mission-critical cloud infrastructure at hyperscale.','is intended for software engineers, IT infrastructure specialists and system architects who want to build, deploy and maintain large-scale cloud infrastructure.'],
+ ['Whether aspiring to manage a multi-million-dollar FMCG brand, steer a fast-scaling tech startup, or lead performance marketing for international e-commerce platforms, this degree delivers cutting-edge strategic insights and practical execution toolkits.','The degree covers strategy and practical methods relevant to FMCG brand management, technology startups and performance marketing for international e-commerce platforms.'],
+ ['Organizations worldwide are drowning in data but starving for insights. This program trains leaders to formulate business problems mathematically, extract and clean big datasets, build predictive predictive models, and deliver actionable visual dashboards to C-suite executives.','Organisations need clear insights from complex data. This programme develops skills in framing business problems mathematically, preparing large datasets, building predictive models and presenting visual dashboards to senior executives.'],
+ ['Modern HR is no longer just personnel administration; it is a strategic business partner that leverages HR Tech, People Analytics, and modern performance appraisal systems to drive organizational performance.','Modern HR combines personnel administration with strategic work using HR Tech, People Analytics and performance appraisal systems.'],
+ ['This section covers overview details for','Read the overview of'],['This section covers admission details for','Review the admission information for'],
+ ['Comprehensive Program Overview','Programme overview'],['Comprehensive Specialisation Overview','Specialisation overview'],['Comprehensive Overview','Overview'],['Frequently Asked Questions','Common questions'],['Career Opportunities & Salary CTC','Career opportunities and salary information'],['Courses & Fee Structure','Courses and fees'],
+ ['Students master','Students study'],['deep architectural and operational mastery across','architectural and operational skills across'],['deep doctrinal and practical mastery over','doctrinal knowledge and practical study of'],['cutting-edge data science','data science'],['high-growth career','career'],['premier degree','degree'],['world-class online postgraduate degree programs','online postgraduate degree programmes'],['elite management program','management programme'],['future-ready','career-focused'],['renowned global faculty','international faculty'],['high-impact executive networks','professional networks'],
+ ['GeduConnect.in','Agrico'],['GeduConnect','Agrico'],['GEDUCONNECT','Agrico'],['Gedu Connect','Agrico'],['GEDU Connect','Agrico']
+];
+const highlightReview=JSON.parse(await fs.readFile(path.join(root,'docs/catalogue-university-highlight-rewrites.json'),'utf8'));
+const universityHighlights=new Set((graph.tables.universities_cmps||[]).filter(link=>link.component_type==='home.highlights').map(link=>link.cmp_id));
+let universityHighlightFields=0;
+const replacements={};let narrativeFields=0;let ruleHits=0;let mappedFields=0;
+let external={};let reviewedBatches=0;for(const batch of ['a','b']){try{const entries=JSON.parse(await fs.readFile(path.join(out,`rewrite-overrides-${batch}.json`),'utf8'));if(entries.length!==124)throw new Error('Incomplete reviewed rewrite batch '+batch);for(const entry of entries){if(typeof entry.original!=='string'||typeof entry.replacement!=='string'||!entry.replacement.trim())throw new Error('Invalid reviewed rewrite.');if(external[entry.original]&&external[entry.original]!==entry.replacement)throw new Error('Conflicting editorial review.');external[entry.original]=entry.replacement;}reviewedBatches++;}catch(e){if(e.code!=='ENOENT')throw e;}}
+if(reviewedBatches===0){const entries=JSON.parse(await fs.readFile(path.join(root,'docs/catalogue-editorial-rewrites.json'),'utf8'));if(entries.length!==248)throw new Error('Incomplete checked-in rewrite manifest.');external=Object.fromEntries(entries.map(entry=>[entry.original,entry.replacement]));reviewedBatches=2;}
+const shortRules=[['Zero-Spam Guarantee','Guidance on your terms'],['Top Ranked Online Universities','University options to compare'],['Top Ranked','University options'],['UGC-DEB accredited degree','programme recognition details'],['UGC-DEB Accredited Degree','Programme recognition details'],['Approved by UGC-DEB','UGC-DEB recognition to confirm'],['Approved by ','Recognition to confirm: '],['WES Approved','WES evaluation information'],['Alumni Success Stories','Considering career outcomes'],['Student Success Stories','Considering career outcomes'],['Seeded content for development.',''],['Replace this with real content from the CMS before launch.','Confirm the current requirements with the institution before applying.']];
+function rewriteString(value){let next=value;if(Object.hasOwn(external,value)){mappedFields++;next=external[value];}for(const [before,after]of [...rules,...shortRules]){if(next.includes(before)){next=next.split(before).join(after);ruleHits++;}}
+
+ if(value.length<=160&&/\d.*(?:recruiters|salary hike|alumni report|alumni occupying|million alumni|corporate alumni)/i.test(value))next='Reported in the university catalogue: '+next.trim()+' Confirm the reporting period and programme coverage.';
+ const leading=value.match(/^\s+/)?.[0]||'';const trailing=value.match(/\s+$/)?.[0]||'';if(leading&&!/^\s/.test(next))next=leading+next;if(trailing&&!/\s$/.test(next))next+=trailing;return next;}
+let paragraphRepairs=0;
+const plain=value=>typeof value==='string'?value:Array.isArray(value)?value.map(plain).join(''):value&&typeof value==='object'?value.text||plain(value.children||[]):'';
+function rewriteValue(value){
+ if(typeof value==='string')return rewriteString(value);
+ if(Array.isArray(value))return value.map(rewriteValue);
+ if(value&&typeof value==='object'){
+  const revised=Object.fromEntries(Object.entries(value).map(([key,v])=>[key,key==='text'||typeof v==='object'?rewriteValue(v):v]));
+  if(value.type==='paragraph'&&Array.isArray(value.children)){
+   const original=plain(value),text=plain(revised);
+   const blanket=/(?:100%|identical|complete|full)\s+(?:(?:legal|academic)\s+)?equivalence|statutory.{0,40}guarantee|fully equivalent|identical legal|guaranteeing complete equality/i;
+   if(blanket.test(text)){
+    const first=text.match(/^(.+?[.!?])(?:\s|$)/)?.[1]||'';
+    const safeFirst=first&&!blanket.test(first)&&!/^(?:Yes|Approved|Statutory|Conferred|Fully|Equivalent|Check)/i.test(first.trim())?first.trim():'';
+    const duration=original.match(/\b\d+(?:\.\d+)?[ -](?:year|month|semester)s?\b/i)?.[0];
+    const sentences=[safeFirst,'Check current recognition for the exact programme and academic session, together with the eligibility or credential-evaluation requirements relevant to your plans.'];
+    if(duration&&!safeFirst.includes(duration))sentences.push('The catalogue lists a duration of '+duration.replace('-',' ')+'.');
+    const replacement=sentences.filter(Boolean).join(' ');
+    const emphasis=value.children.find(child=>child.type==='text'&&child.bold&&child.text&&replacement.includes(child.text));
+    if(emphasis){const index=replacement.indexOf(emphasis.text);revised.children=[{type:'text',text:replacement.slice(0,index)},{...emphasis},{type:'text',text:replacement.slice(index+emphasis.text.length)}].filter(child=>child.text);}
+    else revised.children=[{type:'text',text:replacement}];
+    paragraphRepairs++;
+   }
+  }
+  return revised;
+ }
+ return value;
+}
+for(const unit of units){if(unit.table==='testimonials')continue;const row=graph.tables[unit.table]?.find(r=>r.id===unit.rowId);if(!row)throw new Error('Missing source editorial row.');let value=row[unit.field];if(unit.table==='components_home_highlights'&&universityHighlights.has(unit.rowId)&&['key','value'].includes(unit.field)){const reviewed=highlightReview.find(entry=>entry.originalKey===row.key&&entry.originalValue===row.value);if(!reviewed)throw new Error('Unreviewed university highlight '+unit.rowId);if(reviewed[unit.field]!==value){replacements[unit.key]=reviewed[unit.field];universityHighlightFields++;}continue;}let parsed=value;if(unit.format==='json')parsed=JSON.parse(value);const rewritten=rewriteValue(parsed);const next=unit.format==='json'?JSON.stringify(rewritten):rewritten;if(next!==value){replacements[unit.key]=next;narrativeFields++;}}
+const courseById=new Map(graph.tables.courses.map(r=>[r.id,r]));const courseLinks=graph.tables.programs_course_lnk||[];let programmeSummaries=0;
+for(const program of graph.tables.programs){const course=courseById.get(courseLinks.find(l=>l.program_id===program.id)?.course_id);const degree=course?.name||program.full_name||program.name;const name=program.name;const general=/^general\b/i.test(name);const summary=general?`Explore ${degree}. Compare curriculum, eligibility, fees and available university options.`:`Explore ${degree} with a focus on ${name}. Compare curriculum, eligibility and university options.`;replacements[`programs:${program.id}:short_description`]=JSON.stringify([{type:'paragraph',children:[{type:'text',text:summary}]}]);programmeSummaries++;}
+const blogTitles={
+'Top 10 UGC-DEB Approved Online Universities in India (2026 Ranking & Review)':'How to compare online universities in India',
+'Online MBA vs Regular MBA: Degree Validity, Salary & Corporate Scope':'Online MBA and regular MBA: comparing your options',
+'Is an Online Degree Valid for Government Jobs, WES & Foreign Visas?':'Online degree recognition: questions to check before applying',
+'Best Online MCA & BCA Specializations for High-Paying Tech Careers':'Choosing an online MCA or BCA specialisation',
+'Online Degree vs Distance Degree: Key Differences & LMS Experience':'Online and distance degrees: comparing study formats'
+};
+for(const row of graph.tables.blogs){if(row.type==='Articles')replacements[`blogs:${row.id}:type`]='Blog';if(blogTitles[row.name])replacements[`blogs:${row.id}:name`]=blogTitles[row.name];}
+const examples=Object.entries(replacements).filter(([key])=>key.startsWith('programs:')||key.startsWith('components_common_rich_texts:')).slice(0,8).map(([key,to])=>{const [table,id,field]=key.split(':');return {key,from:graph.tables[table].find(r=>r.id===Number(id))[field],to};});
+const report={generatedAt:new Date().toISOString(),reviewComplete:reviewedBatches===2,reviewedBatches,paragraphRepairs,universityHighlightFields,narrativeFields,ruleHits,reviewedExternalFields:mappedFields,programmeSummaries,overrideCount:Object.keys(replacements).length,preserved:'All structured numeric fees, duration, recognition relations, institutions, dates and literal testimonial quotes remain unchanged. Numeric changes to unsupported editorial guarantees are limited to explicitly reviewed replacements; structured numeric facts are preserved. Programme summaries are new short editorial copy; full factual bodies remain available.',examples};
+for(const [key,to]of Object.entries(replacements)){if(key.startsWith('programs:')||key.endsWith(':type')||key.startsWith('blogs:')&&key.endsWith(':name'))continue;const [table,id,field]=key.split(':');const sourceRow=graph.tables[table].find(r=>r.id===Number(id));if(table==='components_home_highlights'&&universityHighlights.has(Number(id))&&['key','value'].includes(field)&&highlightReview.some(entry=>entry.originalKey===sourceRow.key&&entry.originalValue===sourceRow.value&&entry[field]===to))continue;const before=sourceRow[field];const tokens=s=>String(s).match(/\d+(?:[.,]\d+)*/g)||[];if(JSON.stringify(tokens(before))!==JSON.stringify(tokens(to))){const unit=units.find(u=>u.key===key);if(!unit?.texts.some(t=>Object.hasOwn(external,t.text))&&!String(to).includes('Check current recognition for the exact programme'))throw new Error('Unreviewed numeric editorial tokens changed: '+key);}}
+await fs.writeFile(path.join(out,'editorial-overrides.json'),JSON.stringify(replacements));await fs.writeFile(path.join(out,'editorial-rewrite-report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({...report,examples:examples.slice(0,2)},null,2));

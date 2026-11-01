@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_contact_social_sections",
+  "info": {
+    "displayName": "Social Section"
+  },
+  "options": {},
+  "attributes": {
+    "helper_text": {
+      "type": "string"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.button"
+    },
+    "sociallinks": {
+      "displayName": "sociallinks",
+      "type": "component",
+      "repeatable": false,
+      "component": "contact.sociallinks"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "purpose": "Original official institution marks for compact RS Education cards. The separate card_logo field preserves each university's full logo and favicon. No affiliation is implied.",
+  "retrievedAt": "2026-10-11",
+  "assets": [
+    {
+      "university": "manipal-university-jaipur",
+      "field": "card_logo",
+      "url": "https://www.jaipur.manipal.edu/favicon.png",
+      "sourcePage": "https://www.jaipur.manipal.edu/",
+      "filename": "rs-official-manipal-university-jaipur-card-logo-original.png",
+      "mime": "image/png",
+      "width": 64,
+      "height": 64,
+      "sha256": "de706f0c0357106b85b754762b45f3dc8b16a78ce9acce4053c88bf405d47e48",
+      "alternativeText": "Manipal University Jaipur mark",
+      "notes": "Original PNG counterpart of the official website icon, visually inspected. Preserve native artwork; suitable for the compact 56px card slot. No ICO conversion or scaling is performed."
+    },
+    {
+      "university": "chandigarh-university",
+      "field": "card_logo",
+      "url": "https://www.cuchd.in/add_to_homescreen/android-icon-192x192.png",
+      "sourcePage": "https://www.cuchd.in/about/our-identity.php",
+      "filename": "rs-official-chandigarh-university-card-logo-original.png",
+      "mime": "image/png",
+      "width": 192,
+      "height": 192,
+      "sha256": "3f78732005bc713aff3e5181d2004dfb696fe0f6fa772b6314f720513e1ecab6",
+      "alternativeText": "Chandigarh University seal",
+      "notes": "Original transparent seal declared as the 192x192 icon by the official identity page. Visually inspected; no crop, recolouring or changes to the seal."
+    },
+    {
+      "university": "amity-university",
+      "field": "card_logo",
+      "url": "https://amityonline.com/DesktopLib/images/amity-icon.png",
+      "sourcePage": "https://amityonline.com/media",
+      "filename": "rs-official-amity-university-card-logo-original.png",
+      "mime": "image/png",
+      "width": 101,
+      "height": 121,
+      "sha256": "b74160933e6913c371234bf458faca4b98e7f1a452f3cd9033bab16417d50e8e",
+      "alternativeText": "Amity University shield",
+      "notes": "Original standalone shield embedded on the official media page, visually inspected. The native portrait aspect ratio is intentional: contain the unmodified shield within the square card slot; never crop or stretch it."
+    },
+    {
+      "university": "lovely-professional-university",
+      "field": "card_logo",
+      "url": "https://www.lpuonline.com/favicon.ico?favicon.1c929szseg_6y.ico",
+      "sourcePage": "https://www.lpuonline.com/",
+      "filename": "rs-official-lovely-professional-university-card-logo-original.png",
+      "mime": "image/png",
+      "width": 256,
+      "height": 256,
+      "extractNativePngFrame": true,
+      "sha256": "93e1a55b5399a9dbe7c396317d65f8f2536c32dea7b20895bfba18de569c17fa",
+      "alternativeText": "Lovely Professional University seal",
+      "notes": "Official website declares this ICO. Its native 256x256 frame is already a complete PNG: import those original embedded bytes without decoding/re-encoding, cropping, resampling or recolouring. Visually inspected against the official LPU seal."
+    }
+  ],
+  "previewCommand": "node scripts/configure-rs-card-logos.mjs",
+  "applyCommand": "node scripts/configure-rs-card-logos.mjs --apply"
+}

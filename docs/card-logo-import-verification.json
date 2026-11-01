@@ -1,0 +1,82 @@
+{
+  "verifiedAt": "2026-10-11",
+  "scope": "Local RS Education CMS at 127.0.0.1:1338; only University.card_logo configured",
+  "apply": {
+    "updated": true,
+    "verifiedPublic": true,
+    "storedOriginalBytesVerified": true,
+    "uploadSettingsRestored": true,
+    "preservedFullLogosAndFavicons": true,
+    "unchangedOtherUniversityFieldsAndRelations": true,
+    "unchangedHome": true,
+    "results": [
+      {
+        "university": "manipal-university-jaipur",
+        "cardLogo": "/uploads/rs_official_manipal_university_jaipur_card_logo_original_b7ffe60f48.png",
+        "width": 64,
+        "height": 64,
+        "alreadyConfigured": false
+      },
+      {
+        "university": "chandigarh-university",
+        "cardLogo": "/uploads/rs_official_chandigarh_university_card_logo_original_b81d8ddeb7.png",
+        "width": 192,
+        "height": 192,
+        "alreadyConfigured": false
+      },
+      {
+        "university": "amity-university",
+        "cardLogo": "/uploads/rs_official_amity_university_card_logo_original_672eb5adf9.png",
+        "width": 101,
+        "height": 121,
+        "alreadyConfigured": false
+      },
+      {
+        "university": "lovely-professional-university",
+        "cardLogo": "/uploads/rs_official_lovely_professional_university_card_logo_original_f604059fb6.png",
+        "width": 256,
+        "height": 256,
+        "alreadyConfigured": false
+      }
+    ]
+  },
+  "idempotency": {
+    "updated": false,
+    "verifiedPublic": true,
+    "storedOriginalBytesVerified": true,
+    "uploadSettingsRestored": true,
+    "preservedFullLogosAndFavicons": true,
+    "unchangedOtherUniversityFieldsAndRelations": true,
+    "unchangedHome": true,
+    "results": [
+      {
+        "university": "manipal-university-jaipur",
+        "cardLogo": "/uploads/rs_official_manipal_university_jaipur_card_logo_original_b7ffe60f48.png",
+        "width": 64,
+        "height": 64,
+        "alreadyConfigured": true
+      },
+      {
+        "university": "chandigarh-university",
+        "cardLogo": "/uploads/rs_official_chandigarh_university_card_logo_original_b81d8ddeb7.png",
+        "width": 192,
+        "height": 192,
+        "alreadyConfigured": true
+      },
+      {
+        "university": "amity-university",
+        "cardLogo": "/uploads/rs_official_amity_university_card_logo_original_672eb5adf9.png",
+        "width": 101,
+        "height": 121,
+        "alreadyConfigured": true
+      },
+      {
+        "university": "lovely-professional-university",
+        "cardLogo": "/uploads/rs_official_lovely_professional_university_card_logo_original_f604059fb6.png",
+        "width": 256,
+        "height": 256,
+        "alreadyConfigured": true
+      }
+    ]
+  }
+}

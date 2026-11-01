@@ -1,0 +1,88 @@
+{
+  "collectionName": "components_home_hero_slides",
+  "info": {
+    "displayName": "Hero Slide",
+    "description": "One slide of the homepage hero carousel: an image, an uploaded video or a YouTube embed, with an optional link on the whole slide."
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "media_type": {
+      "type": "enumeration",
+      "enum": [
+        "image",
+        "video",
+        "youtube"
+      ],
+      "default": "image",
+      "required": true
+    },
+    "desktop_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "mobile_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "video_file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "videos"
+      ]
+    },
+    "mobile_video_file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "videos"
+      ]
+    },
+    "embedded_video_link": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "link_target": {
+      "type": "enumeration",
+      "enum": [
+        "self",
+        "_blank"
+      ],
+      "default": "self"
+    },
+    "cta_label": {
+      "type": "string"
+    },
+    "offering_program": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::program.program"
+    },
+    "offering_university": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::university.university"
+    }
+  }
+}

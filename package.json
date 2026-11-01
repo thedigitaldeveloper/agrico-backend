@@ -1,0 +1,53 @@
+{
+  "name": "agrico-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agrico backend",
+  "scripts": {
+    "build": "strapi build",
+    "console": "strapi console",
+    "deploy": "strapi deploy",
+    "dev": "strapi develop",
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "strapi": "strapi",
+    "upgrade": "npx @strapi/upgrade latest",
+    "upgrade:dry": "npx @strapi/upgrade latest --dry",
+    "seed:dev": "tsx scripts/seed-rs-local.ts",
+    "verify:auth": "node scripts/verify-auth.mjs",
+    "verify:password-recovery": "node scripts/verify-password-recovery.cjs",
+    "repair:university-drafts": "node scripts/repair-university-draft-relations.mjs",
+    "seed:local": "tsx scripts/seed-rs-local.ts",
+    "configure:local": "tsx scripts/configure-rs-local.ts",
+    "configure:home": "tsx scripts/configure-rs-home-local.ts",
+    "configure:media": "tsx scripts/configure-rs-media-local.ts"
+  },
+  "dependencies": {
+    "@strapi/database": "5.52.3",
+    "@strapi/plugin-cloud": "5.52.3",
+    "@strapi/plugin-seo": "^2.0.9",
+    "@strapi/plugin-users-permissions": "5.52.3",
+    "@strapi/provider-email-nodemailer": "5.52.3",
+    "@strapi/strapi": "5.52.3",
+    "mysql2": "3.20.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.30.3",
+    "strapi-plugin-fuzzy-search": "^4.1.0",
+    "styled-components": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "tsx": "^4.23.13",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=20.0.0 <=26.x.x",
+    "npm": ">=6.0.0"
+  },
+  "strapi": {
+    "uuid": "620db083-fe28-4f63-aa3c-c1de4ea57b1b"
+  }
+}

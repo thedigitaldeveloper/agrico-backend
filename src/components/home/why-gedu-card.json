@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_home_why_gedu_cards",
+  "info": {
+    "displayName": "Why Gedu Card",
+    "description": "Feature advantage card with checklist points"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "tag": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "points": {
+      "type": "json"
+    },
+    "icon_name": {
+      "type": "string"
+    }
+  }
+}

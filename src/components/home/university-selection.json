@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_home_university_selections",
+  "info": {
+    "displayName": "Selected University",
+    "description": "One university in the chosen display order."
+  },
+  "options": {},
+  "attributes": {
+    "university": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::university.university"
+    }
+  }
+}

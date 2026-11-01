@@ -1,0 +1,64 @@
+{
+  "kind": "collectionType",
+  "collectionName": "student_profiles",
+  "info": {
+    "singularName": "student-profile",
+    "pluralName": "student-profiles",
+    "displayName": "Student Profile",
+    "description": "Private profile for a signed-in student. Never exposed to the public role."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "full_name": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "phone": {
+      "type": "string",
+      "maxLength": 20,
+      "private": true
+    },
+    "city": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "state": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "education_level": {
+      "type": "enumeration",
+      "enum": [
+        "class-10",
+        "class-12",
+        "undergraduate",
+        "postgraduate",
+        "working"
+      ],
+      "default": "class-12"
+    },
+    "target_year": {
+      "type": "integer",
+      "min": 2020,
+      "max": 2100
+    },
+    "interested_streams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::stream.stream"
+    },
+    "shortlisted_universities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::university.university"
+    }
+  }
+}

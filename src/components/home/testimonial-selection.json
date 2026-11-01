@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_home_testimonial_selections",
+  "info": {
+    "displayName": "Selected testimonial",
+    "description": "One published item in the chosen display order."
+  },
+  "options": {},
+  "attributes": {
+    "testimonial": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::testimonial.testimonial"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_college_steps_sections",
+  "info": {
+    "displayName": "Steps Section",
+    "description": "An ordered procedure such as the admission process, where order carries meaning."
+  },
+  "options": {},
+  "attributes": {
+    "name": { "type": "string" },
+    "steps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.step"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "answers",
+  "info": {
+    "singularName": "answer",
+    "pluralName": "answers",
+    "displayName": "Q&A Answer",
+    "description": "Answers to visitor questions. Like questions, these are moderated by publishing."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "body": {
+      "type": "text",
+      "required": true,
+      "maxLength": 8000
+    },
+    "author_name": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "author_email": {
+      "type": "email",
+      "private": true,
+      "maxLength": 180
+    },
+    "is_expert": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_accepted": {
+      "type": "boolean",
+      "default": false
+    },
+    "question": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::question.question",
+      "inversedBy": "answers"
+    }
+  }
+}

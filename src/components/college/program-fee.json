@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_college_program_fees",
+  "info": {
+    "displayName": "Program Fee",
+    "description": "What this university charges for one program. Fee belongs to the university-and-program pair, so it is edited on the university, in one form, rather than as a separate record per pair."
+  },
+  "options": {},
+  "attributes": {
+    "program": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::program.program"
+    },
+    "fee": {
+      "type": "decimal"
+    },
+    "note": {
+      "type": "string"
+    }
+  }
+}

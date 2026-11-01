@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_common_contact_cards",
+  "info": {
+    "displayName": "Contact Card"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.button"
+    }
+  }
+}

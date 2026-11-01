@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_home_cta_banners",
+  "info": {
+    "displayName": "CTA Banner",
+    "description": "Bottom consultation advisor CTA banner"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "primary_cta_label": {
+      "type": "string"
+    },
+    "primary_cta_link": {
+      "type": "string"
+    },
+    "secondary_cta_label": {
+      "type": "string"
+    },
+    "secondary_cta_link": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "affiliations",
+  "info": {
+    "singularName": "affiliation",
+    "pluralName": "affiliations",
+    "displayName": "Affiliation",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "full_name": {
+      "type": "string"
+    }
+  }
+}

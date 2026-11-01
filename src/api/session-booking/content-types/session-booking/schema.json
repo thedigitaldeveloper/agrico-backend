@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "session_bookings",
+  "info": {
+    "singularName": "session-booking",
+    "pluralName": "session-bookings",
+    "displayName": "Session Booking",
+    "description": "A counselling session between a student and a mentor. Readable only by its own two participants."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "student": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "mentor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::mentor-profile.mentor-profile"
+    },
+    "scheduled_at": {
+      "type": "datetime",
+      "required": true
+    },
+    "duration_minutes": {
+      "type": "integer",
+      "default": 30,
+      "min": 15,
+      "max": 120,
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["requested", "confirmed", "completed", "cancelled"],
+      "default": "requested",
+      "required": true
+    },
+    "topic": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "notes": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "meeting_link": {
+      "type": "string",
+      "maxLength": 500,
+      "private": true
+    },
+    "cancellation_reason": {
+      "type": "string",
+      "maxLength": 300
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "kind": "collectionType",
+  "collectionName": "enquiries",
+  "info": {
+    "singularName": "enquiry",
+    "pluralName": "enquiries",
+    "displayName": "Enquiry",
+    "description": "Leads captured from the application form, counselling modal and contact forms."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "email": {
+      "type": "email",
+      "required": false,
+      "maxLength": 180
+    },
+    "phone": {
+      "type": "string",
+      "required": true,
+      "maxLength": 20
+    },
+    "city": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "state": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "message": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "source": {
+      "type": "enumeration",
+      "enum": [
+        "application-form",
+        "counselling",
+        "brochure",
+        "contact",
+        "sidebar",
+        "homepage-callback"
+      ],
+      "default": "application-form",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "new",
+        "contacted",
+        "qualified",
+        "closed"
+      ],
+      "default": "new",
+      "required": true
+    },
+    "consent": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "university": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::university.university"
+    },
+    "program": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::program.program"
+    }
+  }
+}

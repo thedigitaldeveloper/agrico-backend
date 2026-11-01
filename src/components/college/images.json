@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_college_images",
+  "info": {
+    "displayName": "Images"
+  },
+  "options": {},
+  "attributes": {
+    "images": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.gallery"
+    }
+  }
+}

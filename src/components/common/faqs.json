@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_common_faqs",
+  "info": {
+    "displayName": "Faqs",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_contact_sociallinks",
+  "info": {
+    "displayName": "Sociallinks"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "socials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::social.social"
+    }
+  }
+}

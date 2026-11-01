@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_mentor_availability_slots",
+  "info": {
+    "displayName": "Availability Slot",
+    "description": "One recurring weekly window a mentor is bookable in."
+  },
+  "options": {},
+  "attributes": {
+    "day_of_week": {
+      "type": "enumeration",
+      "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
+      "required": true
+    },
+    "start_time": { "type": "time", "required": true },
+    "end_time": { "type": "time", "required": true }
+  }
+}

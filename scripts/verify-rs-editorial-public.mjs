@@ -1,0 +1,11 @@
+import fs from 'node:fs/promises';
+const findings=[],seen=new Set();let checked=0,paragraphs=0;let pages=1;
+const plain=value=>typeof value==='string'?value:Array.isArray(value)?value.map(plain).join(''):value&&typeof value==='object'?value.text||plain(value.children||[]):'';
+function inspect(value,slug){if(Array.isArray(value)){value.forEach(v=>inspect(v,slug));return;}if(!value||typeof value!=='object')return;if(value.type==='paragraph'){
+ paragraphs++;const text=plain(value);let reason;if(/guidelinesCheck|recognition statement[.,]|identical legal equivalence|100% equivalence|statutory.{0,40}guarantee/i.test(text))reason='unsafe or assembled recognition claim';
+ else if(/GeduConnect|seeded content|for development|local preview|placeholder|development seed/i.test(text))reason='unwanted source/development copy';
+ else{const children=value.children||[];for(let i=1;i<children.length;i++){const a=plain(children[i-1]),b=plain(children[i]);if(/[A-Za-z]$/.test(a)&&/^[A-Za-z]/.test(b)){reason='joined formatted text runs';break;}}}
+ if(reason){const key=reason+':'+text;if(!seen.has(key)){seen.add(key);findings.push({slug,reason,text:text.slice(0,500)});}}
+ }Object.values(value).filter(v=>v&&typeof v==='object').forEach(v=>inspect(v,slug));}
+for(let page=1;page<=pages;page++){const response=await fetch(`http://127.0.0.1:1340/api/university-contents?pagination[pageSize]=100&pagination[page]=${page}`,{signal:AbortSignal.timeout(60000)});if(!response.ok)throw new Error('Public content read returned '+response.status);const result=await response.json();pages=result.meta.pagination.pageCount;for(const row of result.data){inspect(row.content,row.slug);checked++;}}
+const result={checkedAt:new Date().toISOString(),contentDocuments:checked,paragraphs,issues:findings.length,findings};await fs.writeFile('exports/rs-catalogue-import/public-editorial-scan.json',JSON.stringify(result,null,2));console.log(JSON.stringify({...result,findings:findings.slice(0,12)},null,2));if(findings.length)process.exitCode=1;

@@ -1,0 +1,91 @@
+{
+  "kind": "collectionType",
+  "collectionName": "schemes",
+  "info": {
+    "singularName": "scheme",
+    "pluralName": "schemes",
+    "displayName": "Scholarship",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "full_name": {
+      "type": "text"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "country": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "pincode": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "establish": {
+      "type": "date"
+    },
+    "view_button_text": {
+      "type": "string"
+    },
+    "apply_button_text": {
+      "type": "string"
+    },
+    "show_apply_button": {
+      "type": "boolean"
+    },
+    "rating": {
+      "type": "integer"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "university_contents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::university-content.university-content",
+      "mappedBy": "scheme"
+    }
+  }
+}

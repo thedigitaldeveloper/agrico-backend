@@ -1,0 +1,116 @@
+{
+  "purpose": "Official university media for the isolated local RS Education catalogue preview. No affiliation or admissions claim is implied.",
+  "assets": [
+    {
+      "university": "chandigarh-university",
+      "field": "logo",
+      "url": "https://www.cuchd.in/international/assets/img/cu-logo.webp",
+      "sourcePage": "https://www.cuchd.in/international/campus-life.php",
+      "filename": "chandigarh-university-logo.webp",
+      "mime": "image/webp",
+      "bytes": 7860,
+      "retrievedAt": "2026-10-11"
+    },
+    {
+      "university": "chandigarh-university",
+      "field": "image",
+      "url": "https://www.cuchd.in/international/assets/img/campus-life-img-4.jpg",
+      "sourcePage": "https://www.cuchd.in/international/campus-life.php",
+      "filename": "chandigarh-university-image.jpg",
+      "mime": "image/jpeg",
+      "bytes": 165266,
+      "retrievedAt": "2026-10-11"
+    },
+    {
+      "university": "lovely-professional-university",
+      "field": "logo",
+      "url": "https://assets.lpuonline.com/LPU-Online-Logo.svg",
+      "sourcePage": "https://www.lpuonline.com/",
+      "filename": "lovely-professional-university-logo.svg",
+      "mime": "image/svg+xml",
+      "bytes": 22404,
+      "retrievedAt": "2026-10-11"
+    },
+    {
+      "university": "lovely-professional-university",
+      "field": "image",
+      "url": "https://www.lpu.in/lpu-assets/images/virtual-background/lpu-campus-12.jpg",
+      "sourcePage": "https://www.lpu.in/virtual-background.php",
+      "filename": "lovely-professional-university-image.jpg",
+      "mime": "image/jpeg",
+      "bytes": 100245,
+      "retrievedAt": "2026-10-11",
+      "width": 720,
+      "height": 424
+    },
+    {
+      "university": "amity-university",
+      "field": "logo",
+      "url": "https://amityonline.com/images/logo.png",
+      "sourcePage": "https://amityonline.com/media",
+      "filename": "amity-university-logo.jpg",
+      "mime": "image/jpeg",
+      "bytes": 5009,
+      "retrievedAt": "2026-10-11"
+    },
+    {
+      "university": "manipal-university-jaipur",
+      "field": "logo",
+      "url": "https://www.jaipur.manipal.edu/img/manipal-university-jaipur-logo-01.svg",
+      "sourcePage": "https://www.jaipur.manipal.edu/",
+      "filename": "manipal-university-jaipur-logo.svg",
+      "mime": "image/svg+xml",
+      "bytes": 408196,
+      "retrievedAt": "2026-10-11"
+    },
+    {
+      "university": "manipal-university-jaipur",
+      "field": "image",
+      "url": "https://www.jaipur.manipal.edu/img/Untitled-1.jpg",
+      "sourcePage": "https://www.jaipur.manipal.edu/",
+      "filename": "manipal-university-jaipur-image.jpg",
+      "mime": "image/jpeg",
+      "bytes": 194764,
+      "retrievedAt": "2026-10-11",
+      "width": 500,
+      "height": 456,
+      "alternativeText": "Manipal University Jaipur campus dome and entrance sign"
+    },
+    {
+      "university": "amity-university",
+      "field": "image",
+      "url": "https://www.amity.edu/imagehandler.ashx?file=backoffice_uploaddirectory%2FUploads%2Fphotogallery%2F4sig_infra-04.jpg",
+      "sourcePage": "https://www.amity.edu/photo-gallery-detail.aspx?aid=1",
+      "filename": "amity-university-image.jpg",
+      "mime": "image/jpeg",
+      "bytes": 15072,
+      "width": 205,
+      "height": 164,
+      "alternativeText": "Amity University campus buildings and central lawn",
+      "retrievedAt": "2026-10-11",
+      "notes": "Official gallery caption: Amity University. Small source image; use for university cards, not hero. Exact city is not asserted by this asset."
+    }
+  ],
+  "gaps": [],
+  "notes": [
+    "Official media fetched for local preview. Campus photography depicts institutions, not a promise of campus attendance for an online programme.",
+    "Amity campus image is limited to 205x164 pixels; replace with an approved higher-resolution client asset for large placements."
+  ],
+  "heroAsset": {
+    "university": "manipal-university-jaipur",
+    "program": "manipal-university-jaipur-online-mba",
+    "url": "https://www.jaipur.manipal.edu/img/gallery/IMG_9947.JPG",
+    "sourcePage": "https://www.jaipur.manipal.edu/picture-gallery.php",
+    "filename": "rs-official-muj-campus-grounds-hero.jpg",
+    "replacesFilename": "rs-official-manipal-university-jaipur-image.jpg",
+    "mime": "image/jpeg",
+    "width": 5184,
+    "height": 3456,
+    "alternativeText": "Manipal University Jaipur campus buildings and landscaped grounds",
+    "retrievedAt": "2026-10-11",
+    "scope": "Only the recognized MUJ Online MBA hero desktop/mobile image; university and spotlight images remain unchanged.",
+    "previewCommand": "node scripts/update-rs-hero-campus.mjs",
+    "applyCommand": "node scripts/update-rs-hero-campus.mjs --apply",
+    "notes": "Original official JPEG, without AI transformation. The script compares draft/published Home before publishing and preserves all other content and offering relations. Requires the running local RS CMS on port 1338 and ignored local admin credentials."
+  }
+}

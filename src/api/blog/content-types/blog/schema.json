@@ -1,0 +1,118 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blogs",
+  "info": {
+    "singularName": "blog",
+    "pluralName": "blogs",
+    "displayName": "Blogs & News",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Articles",
+        "News",
+        "Press release",
+        "Blog"
+      ]
+    },
+    "download": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tag.tag"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "long_description": {
+      "type": "blocks"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course"
+    },
+    "exams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exam.exam"
+    },
+    "streams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::stream.stream"
+    },
+    "dateTime": {
+      "type": "datetime",
+      "required": false,
+      "description": "Actual Agrico publication time. Leave blank on drafts; do not use an official notice date."
+    },
+    "editorial_content": {
+      "type": "json",
+      "description": "Structured article body, TOC, tables, FAQs, sources and related reading."
+    },
+    "body_html": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.html-section"
+    },
+    "author_name": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "datetime"
+    },
+    "universities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::university.university",
+      "inversedBy": "editorial_posts"
+    },
+    "programs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::program.program"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_common_html_sections",
+  "info": {
+    "displayName": "HTML/CSS Section",
+    "description": "Custom HTML and CSS with an isolated live preview in the editor"
+  },
+  "options": {},
+  "attributes": {
+    "name": { "type": "string" },
+    "code": { "type": "customField", "customField": "global::html-css-preview" }
+  }
+}

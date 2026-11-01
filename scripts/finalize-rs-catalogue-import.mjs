@@ -1,0 +1,33 @@
+/** Finish an authorized local import using Strapi's own unpublish semantics. */
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import dotenv from 'dotenv';
+import mysql from 'mysql2/promise';
+const root=process.cwd(),out=path.join(root,'exports/rs-catalogue-import');
+const assert=(value,message)=>{if(!value)throw new Error(message);};const env=dotenv.parse(await fs.readFile(path.join(root,'.env')));
+assert(path.basename(root)==='rs-education-backend'&&env.DATABASE_NAME==='agrico'&&['localhost','127.0.0.1'].includes(env.DATABASE_HOST)&&env.PORT==='1338'&&env.NODE_ENV!=='production','Local RS isolation guard failed.');
+const apply=process.argv.includes('--apply');const plan=JSON.parse(await fs.readFile(path.join(out,'import-plan.json'),'utf8'));const db=await mysql.createConnection({host:env.DATABASE_HOST,port:Number(env.DATABASE_PORT||3306),database:'agrico',user:env.DATABASE_USERNAME,password:env.DATABASE_PASSWORD||'',dateStrings:true});
+const blocks=text=>JSON.stringify([{type:'paragraph',children:[{type:'text',text}]}]);
+const posts=[
+ ['a-practical-checklist-for-your-programme-shortlist','A practical checklist for your programme shortlist','A practical checklist for your programme shortlist','Start with what you want to study, then compare the universities offering it.','Write down your study goal, available time and budget. Compare the curriculum, entry requirements and complete fee schedule for each university offering. Keep a shortlist that reflects the way you want to study.'],
+ ['questions-to-ask-before-you-choose-a-study-mode','Questions to ask before you choose a study mode','Questions to ask before you choose a study mode','Understand how classes, support and examinations fit your routine.','Ask about live and recorded sessions, attendance, learning material, examination location and academic support. Confirm these details for the exact programme and academic session before choosing a study mode.'],
+ ['what-to-keep-ready-before-you-apply','What to keep ready before you apply','What to keep ready before you apply','Prepare the information you need for your next application.','Check the university’s current document list and keep readable copies ready. Review your qualification details, the spelling of your name and your contact information before submitting an application.'],
+ ['rs-education-local-platform-preview-is-ready','Agrico local platform preview is ready','Explore university programmes with Agrico','Browse university and programme information to build a focused shortlist.','Explore the Agrico catalogue by degree and university. Review each programme’s study mode, duration, eligibility and available fee information, then open the university details to understand your options.'],
+ ['programme-comparison-added-to-the-preview','Programme comparison added to the preview','Compare programmes before you decide','Put two university programmes side by side before making your choice.','Use programme comparison to review two options together. Look at the study mode, duration, eligibility and stated fees, and note any details you want to confirm with the university or discuss with an adviser.'],
+ ['student-accounts-available-in-the-local-preview','Student accounts available in the local preview','Get guidance for your next application','Take a considered next step with the programme you have shortlisted.','When you have a shortlist, request admission guidance for the university and programme you are considering. Keep your questions about eligibility, documents, fees and study format ready so the conversation can focus on your next step.']
+];
+const tasks=[];try{
+ for(const remap of plan.programmeRemaps){const [rows]=await db.query('SELECT document_id,slug FROM programs WHERE slug=? AND published_at IS NOT NULL',[remap.oldProgrammeSlug]);for(const row of rows)tasks.push({model:'program',...row});}
+ for(const slug of [...new Set(plan.programmeRemaps.map(r=>r.universitySlug))].flatMap(slug=>[slug+'-about',slug+'-programme-overview'])){const [rows]=await db.query('SELECT document_id,slug FROM university_contents WHERE slug=? AND published_at IS NOT NULL',[slug]);for(const row of rows)tasks.push({model:'university-content',...row});}
+ console.log(JSON.stringify({mode:apply?'apply':'preview',archiveRecognizedSamples:tasks.length,rsEditorialUpdates:posts.length}));
+ if(!apply)process.exit(0);
+ assert((await fs.stat(path.join(out,'import-execution-result.json'))).isFile(),'Catalogue import has not completed.');
+ const credentials=dotenv.parse(await fs.readFile(path.join(root,'.env.local-accounts')));let token;
+ async function api(route,body){const response=await fetch('http://127.0.0.1:1340'+route,{method:'POST',headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},body:JSON.stringify(body),signal:AbortSignal.timeout(90000)});assert(response.ok,`Local CMS ${route.split('?')[0]} returned ${response.status}`);return response.json();}
+ token=(await api('/admin/login',{email:credentials.ADMIN_EMAIL,password:credentials.ADMIN_PASSWORD})).data?.token;assert(token,'Local admin authentication failed.');
+ const archived=[];for(const task of tasks){await api(`/content-manager/collection-types/api::${task.model}.${task.model}/${task.document_id}/actions/unpublish`,{discardDraft:false});archived.push(task);}
+ await db.beginTransaction();const rewritten=[];for(const [slug,oldName,name,description,body]of posts){const [rows]=await db.query('SELECT id,name FROM blogs WHERE slug=?',[slug]);assert(rows.length>0,'Expected existing RS editorial post missing.');assert(rows.every(row=>row.name===oldName||row.name===name),'RS editorial post has independent changes; refusing overwrite.');await db.query('UPDATE blogs SET name=?,description=?,long_description=? WHERE slug=?',[name,description,blocks(body),slug]);rewritten.push(slug);}await db.commit();
+ const counts={};for(const [label,table]of Object.entries({universities:'universities',programmes:'programs',content:'university_contents',posts:'blogs',mentors:'mentor_profiles',testimonials:'testimonials'})){const [rows]=await db.query('SELECT COUNT(DISTINCT document_id) AS documents,SUM(published_at IS NOT NULL) AS published FROM '+table);counts[label]=rows[0];}
+ assert(Number(counts.universities.published)===17&&Number(counts.programmes.published)===141&&Number(counts.content.published)===1093,'Final catalogue count differs from the approved import.');
+ const result={completedAt:new Date().toISOString(),archivedPreservingDrafts:archived,rewrittenExistingPosts:rewritten,counts};await fs.writeFile(path.join(out,'import-finalization-result.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
+}finally{await db.end();}

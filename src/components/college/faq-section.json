@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_college_faq_sections",
+  "info": {
+    "displayName": "Faq Section",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "faqs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.faqs"
+    }
+  }
+}

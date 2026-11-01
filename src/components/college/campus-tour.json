@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_common_campus_tours",
+  "info": {
+    "displayName": "Campus Tour",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "video": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.videocard"
+    },
+    "googlemap": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.gmapcard"
+    }
+  }
+}

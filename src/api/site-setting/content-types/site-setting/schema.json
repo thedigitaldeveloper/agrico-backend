@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "Site Setting",
+    "description": "Contact details shown across the site — WhatsApp CTAs, enquiry modals, sidebars and the footer. Edited here rather than set per deployment, so changing the number does not need a rebuild."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "whatsapp_number": {
+      "type": "string",
+      "required": true,
+      "maxLength": 20,
+      "regex": "^[0-9]{10,15}$",
+      "description": "Country code first, digits only — no +, spaces or dashes. The site builds wa.me/<number> links from this verbatim, and anything else produces a dead link."
+    },
+    "contact_email": {
+      "type": "email",
+      "required": true,
+      "maxLength": 100
+    },
+    "contact_phone": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "footer_tagline": {
+      "type": "text",
+      "maxLength": 300
+    }
+  }
+}

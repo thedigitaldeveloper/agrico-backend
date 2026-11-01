@@ -1,0 +1,26 @@
+[
+  {
+    "oldProgrammeSlug": "manipal-university-jaipur-online-mba",
+    "newProgrammeSlug": "online-mba-general-management",
+    "universitySlug": "manipal-university-jaipur",
+    "verifiedSourcePair": true
+  },
+  {
+    "oldProgrammeSlug": "chandigarh-university-online-bba",
+    "newProgrammeSlug": "online-bba-general-management",
+    "universitySlug": "chandigarh-university",
+    "verifiedSourcePair": true
+  },
+  {
+    "oldProgrammeSlug": "amity-university-online-mca",
+    "newProgrammeSlug": "online-mca-general",
+    "universitySlug": "amity-university",
+    "verifiedSourcePair": true
+  },
+  {
+    "oldProgrammeSlug": "lovely-professional-university-online-mba",
+    "newProgrammeSlug": "online-mba-general-management",
+    "universitySlug": "lovely-professional-university",
+    "verifiedSourcePair": true
+  }
+]

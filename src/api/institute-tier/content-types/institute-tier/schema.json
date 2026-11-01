@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "institute_tiers",
+  "info": {
+    "singularName": "institute-tier",
+    "pluralName": "institute-tiers",
+    "displayName": "Institute Tier"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    }
+  }
+}

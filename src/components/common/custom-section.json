@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_common_custom_sections",
+  "info": {
+    "displayName": "Custom Content Section",
+    "description": "Responsive text and image section with an optional button"
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": { "type": "string" },
+    "heading": { "type": "string", "required": true },
+    "body": { "type": "blocks" },
+    "image": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "image_alt": { "type": "string" },
+    "button_label": { "type": "string" },
+    "button_link": { "type": "string" },
+    "layout": {
+      "type": "enumeration",
+      "enum": ["image_right", "image_left", "text_only"],
+      "default": "image_right"
+    },
+    "background": {
+      "type": "enumeration",
+      "enum": ["ivory", "white", "ruby_tint"],
+      "default": "ivory"
+    }
+  }
+}

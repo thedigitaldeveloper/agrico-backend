@@ -1,0 +1,160 @@
+{
+  "kind": "collectionType",
+  "collectionName": "programs",
+  "info": {
+    "singularName": "program",
+    "pluralName": "programs",
+    "displayName": "Program",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "duration": {
+      "type": "decimal"
+    },
+    "highlights": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.highlights"
+    },
+    "fee": {
+      "type": "decimal"
+    },
+    "average_package": {
+      "type": "string"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "course_code": {
+      "type": "string"
+    },
+    "apply_button_text": {
+      "type": "string"
+    },
+    "view_button_text": {
+      "type": "string"
+    },
+    "show_apply_button": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "rating": {
+      "type": "decimal",
+      "min": 0,
+      "max": 5
+    },
+    "brochure": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "course_mode": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course-mode.course-mode"
+    },
+    "course_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course-type.course-type"
+    },
+    "exams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::exam.exam"
+    },
+    "tag": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tag.tag"
+    },
+    "universities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::university.university",
+      "inversedBy": "programs"
+    },
+    "university_contents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::university-content.university-content",
+      "mappedBy": "program"
+    },
+    "stream": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::stream.stream"
+    },
+    "duration_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::duration-type.duration-type"
+    },
+    "eligibilities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::eligibility.eligibility"
+    },
+    "position": {
+      "type": "integer"
+    },
+    "course": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course.course",
+      "inversedBy": "programs"
+    },
+    "program_icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files",
+        "images"
+      ]
+    },
+    "duration_text": {
+      "type": "string"
+    },
+    "syllabus": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "short_description": {
+      "type": "blocks"
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

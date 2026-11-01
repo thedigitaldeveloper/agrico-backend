@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_home_highlights",
+  "info": {
+    "displayName": "Highlights",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    }
+  }
+}

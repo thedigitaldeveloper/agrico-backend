@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "course_types",
+  "info": {
+    "singularName": "course-type",
+    "pluralName": "course-types",
+    "displayName": "Course Type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    }
+  }
+}

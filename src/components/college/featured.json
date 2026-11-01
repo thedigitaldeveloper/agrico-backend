@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_college_featureds",
+  "info": {
+    "displayName": "Featured",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.card"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "blocks"
+    }
+  }
+}

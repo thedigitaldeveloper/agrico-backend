@@ -1,0 +1,101 @@
+{
+  "kind": "collectionType",
+  "collectionName": "university_contents",
+  "info": {
+    "singularName": "university-content",
+    "pluralName": "university-contents",
+    "displayName": "Content Section",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "required": true,
+      "targetField": "display_name"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "common.rich-text",
+        "common.custom-section",
+        "common.html-section",
+        "college.images",
+        "college.faq-section",
+        "college.featured",
+        "college.campus-tour",
+        "common.title-description",
+        "college.fee-structure",
+        "common.notification",
+        "common.bullet-list",
+        "common.highlight-list",
+        "college.steps-section"
+      ],
+      "max": 12,
+      "min": 0
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "position": {
+      "type": "integer"
+    },
+    "section_key": {
+      "type": "enumeration",
+      "enum": [
+        "about",
+        "courses",
+        "fees",
+        "admission",
+        "examination",
+        "placements",
+        "faculty",
+        "syllabus",
+        "eligibility",
+        "career",
+        "lms"
+      ]
+    },
+    "university": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::university.university",
+      "inversedBy": "university_contents"
+    },
+    "program": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::program.program",
+      "inversedBy": "university_contents"
+    },
+    "examination": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::examination.examination",
+      "inversedBy": "university_contents"
+    },
+    "secondary_slug": {
+      "type": "string"
+    },
+    "scheme": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::scheme.scheme",
+      "inversedBy": "university_contents"
+    }
+  }
+}

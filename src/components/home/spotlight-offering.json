@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_home_spotlight_offerings",
+  "info": {
+    "displayName": "Programme Spotlight",
+    "description": "Feature one university programme using its canonical catalogue details. An editorial image must not imply an unverified campus or affiliation."
+  },
+  "options": {},
+  "attributes": {
+    "program": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::program.program"
+    },
+    "university": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::university.university"
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

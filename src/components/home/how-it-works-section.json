@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_home_how_it_works_sections",
+  "info": {
+    "displayName": "How It Works Section",
+    "icon": "list-ol",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "default": "Streamlined Admission Journey"
+    },
+    "heading": {
+      "type": "string",
+      "default": "How Agrico Works"
+    },
+    "description": {
+      "type": "text"
+    },
+    "steps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.step-card"
+    },
+    "cta_label": {
+      "type": "string",
+      "default": "Start Common Application"
+    },
+    "cta_link": {
+      "type": "string",
+      "default": "/common-application-form"
+    }
+  }
+}

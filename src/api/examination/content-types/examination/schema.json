@@ -1,0 +1,110 @@
+{
+  "kind": "collectionType",
+  "collectionName": "examinations",
+  "info": {
+    "singularName": "examination",
+    "pluralName": "examinations",
+    "displayName": "Examination",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "form_start_date": {
+      "type": "datetime"
+    },
+    "form_closing_date": {
+      "type": "datetime"
+    },
+    "admit_card_date": {
+      "type": "datetime"
+    },
+    "examination_date": {
+      "type": "datetime"
+    },
+    "registration_fee": {
+      "type": "string"
+    },
+    "exam_mode": {
+      "type": "enumeration",
+      "enum": [
+        "Online",
+        "Offline"
+      ]
+    },
+    "description": {
+      "type": "text"
+    },
+    "notification": {
+      "displayName": "notification",
+      "type": "component",
+      "repeatable": false,
+      "component": "common.notification"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "important_links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.button"
+    },
+    "university_contents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::university-content.university-content",
+      "mappedBy": "examination"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course"
+    },
+    "streams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::stream.stream"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::tag.tag"
+    },
+    "universities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::university.university"
+    },
+    "eligibility": {
+      "type": "text"
+    },
+    "position": {
+      "type": "integer"
+    },
+    "logo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": false
+    }
+  }
+}

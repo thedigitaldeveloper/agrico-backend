@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_home_step_cards",
+  "info": {
+    "displayName": "Step Card",
+    "description": "3-Step admission process card"
+  },
+  "options": {},
+  "attributes": {
+    "step_number": {
+      "type": "string",
+      "required": true
+    },
+    "badge": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "highlights": {
+      "type": "json"
+    },
+    "icon_name": {
+      "type": "string"
+    }
+  }
+}

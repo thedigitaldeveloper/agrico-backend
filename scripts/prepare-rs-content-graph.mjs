@@ -1,0 +1,30 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import crypto from 'node:crypto';
+const root=process.cwd();if(path.basename(root)!=='rs-education-backend')throw new Error('RS only.');
+const out=path.join(root,'exports/rs-catalogue-import');
+const inventory=JSON.parse(await fs.readFile(path.join(out,'inventory-private.json'),'utf8'));
+const snapshot=JSON.parse(await fs.readFile(path.join(out,'source-content-snapshot.json'),'utf8'));
+const data=snapshot.tables;
+const schemas=new Map();
+for(const model of inventory.source.schemas)schemas.set(`api::${model.type}.${model.type}`,model);
+for(const group of await fs.readdir(path.resolve(root,'../geduconnectbknd/src/components')))for(const file of await fs.readdir(path.resolve(root,'../geduconnectbknd/src/components',group))){if(!file.endsWith('.json'))continue;schemas.set(`${group}.${file.slice(0,-5)}`,JSON.parse(await fs.readFile(path.resolve(root,'../geduconnectbknd/src/components',group,file),'utf8')));}
+const selected=new Map();const contexts=new Map();
+const include=(table,id,context)=>{if(!selected.has(table))selected.set(table,new Set());const fresh=!selected.get(table).has(id);selected.get(table).add(id);const k=table+':'+id;if(!contexts.has(k))contexts.set(k,new Set());contexts.get(k).add(context);return fresh;};
+const policy=JSON.parse(await fs.readFile(path.join(root,'docs/catalogue-import-policy.json'),'utf8'));
+const sourceModels=inventory.source.models.filter(m=>m.scope==='import-content'&&!policy.preserveModels.includes(m.type));
+function visit(uid,row,context){const schema=schemas.get(uid);if(!schema)throw new Error('Unknown component '+uid);const table=schema.collectionName; if(!include(table,row.id,context))return;
+ for(const cmp of data[table+'_cmps']||[]){if(cmp.entity_id!==row.id)continue; const childSchema=schemas.get(cmp.component_type);if(!childSchema)throw new Error('Unknown component '+cmp.component_type);const child=(data[childSchema.collectionName]||[]).find(r=>r.id===cmp.cmp_id);if(!child)throw new Error('Missing component '+cmp.component_type+':'+cmp.cmp_id);include(table+'_cmps',cmp.id,context);visit(cmp.component_type,child,context);}}
+for(const model of sourceModels)for(const row of data[model.table]||[])visit(`api::${model.type}.${model.type}`,row,`${model.type}:${row.document_id||row.id}`);
+for(const [table,rows] of Object.entries(data)){if(!table.endsWith('_lnk'))continue;const keys=inventory.source.foreignKeys.filter(k=>k.tableName===table);if(!keys.length)continue;for(const row of rows)if(keys.every(k=>selected.get(k.targetTable)?.has(row[k.columnName])))include(table,row.id,'relation');}
+for(const row of data.files_related_mph){const schema=schemas.get(row.related_type);if(schema&&selected.get(schema.collectionName)?.has(row.related_id)){include('files_related_mph',row.id,'media');include('files',row.file_id,'media');}}
+const graph={sourceDatabase:'geduconnect',sourceSnapshotSha256:crypto.createHash('sha256').update(JSON.stringify(snapshot)).digest('hex'),generatedAt:new Date().toISOString(),tables:Object.fromEntries([...selected].map(([table,ids])=>[table,data[table].filter(r=>ids.has(r.id))]))};
+const units=[];const editorialFields=new Set(['description','short_description','long_description','body','bio','heading','headline','answer','question','title','meta_description','meta_title','summary','content']);
+const parse=value=>{if(typeof value!=='string')return value;try{return JSON.parse(value);}catch{return value;}};
+function leaves(value,location=[]){if(typeof value==='string')return [{location,text:value}];if(Array.isArray(value))return value.flatMap((v,i)=>leaves(v,[...location,i]));if(value&&typeof value==='object')return Object.entries(value).flatMap(([k,v])=>k==='text'?leaves(v,[...location,k]):typeof v==='object'?leaves(v,[...location,k]):[]);return [];}
+for(const [uid,schema]of schemas){const table=schema.collectionName;for(const row of graph.tables[table]||[])for(const [attributeName,attribute] of Object.entries(schema.attributes||{})){const field=attributeName.replace(/[A-Z]/g,char=>'_'+char.toLowerCase());const universityHighlight=uid==='home.highlights'&&['key','value'].includes(field)&&[...(contexts.get(table+':'+row.id)||[])].some(context=>context.startsWith('university:'));if(!(editorialFields.has(field)||universityHighlight)||!['string','text','richtext','blocks','json'].includes(attribute.type)||!row[field])continue;const value=parse(row[field]);const texts=typeof value==='string'?[{location:[],text:value}]:leaves(value);if(texts.length)units.push({key:`${table}:${row.id}:${field}`,uid,table,rowId:row.id,field,contexts:[...(contexts.get(table+':'+row.id)||[])],format:typeof value==='string'?'text':'json',texts});}}
+const uniqueTexts=[...new Set(units.flatMap(u=>u.texts.map(t=>t.text)).filter(t=>t.trim()))];
+const summary={rootDocuments:sourceModels.map(m=>({type:m.type,documents:m.documents,published:Number(m.publishedRows||0)})),selectedTables:Object.fromEntries(Object.entries(graph.tables).map(([t,r])=>[t,r.length])),editorialFields:units.length,uniqueTextFragments:uniqueTexts.length,editorialCharacters:uniqueTexts.reduce((a,t)=>a+t.length,0),longParagraphs:uniqueTexts.filter(t=>t.length>160).length,mediaRecords:graph.tables.files?.length||0};
+await fs.writeFile(path.join(out,'reachable-source-graph.json'),JSON.stringify(graph));await fs.writeFile(path.join(out,'editorial-units.json'),JSON.stringify(units));await fs.writeFile(path.join(out,'graph-summary.json'),JSON.stringify(summary,null,2));
+await fs.writeFile(path.join(out,'editorial-long-sample.json'),JSON.stringify(uniqueTexts.filter(t=>t.length>160).slice(-30),null,2));
+console.log(JSON.stringify({...summary,selectedTables:Object.fromEntries(Object.entries(summary.selectedTables).filter(([t])=>!t.endsWith('_lnk')&&!t.endsWith('_cmps')))},null,2));

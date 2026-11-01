@@ -1,0 +1,78 @@
+{
+  "sourceDatabase": "geduconnect",
+  "targetDatabase": "rs_education",
+  "universityAliases": {
+    "manipal-university-jaipur-online": "manipal-university-jaipur",
+    "chandigarh-university-online": "chandigarh-university",
+    "amity-university-online": "amity-university",
+    "lpu-online": "lovely-professional-university"
+  },
+  "courseAliases": {
+    "online-mba": "mba",
+    "online-bba": "bba",
+    "online-mca": "mca"
+  },
+  "programmeRedirects": {
+    "manipal-university-jaipur-online-mba": "online-mba-general-management",
+    "chandigarh-university-online-bba": "online-bba-general-management",
+    "amity-university-online-mca": "online-mca-general",
+    "lovely-professional-university-online-mba": "online-mba-general-management"
+  },
+  "preserveModels": [
+    "home",
+    "site-setting",
+    "contact-us",
+    "student-profile",
+    "enquiry",
+    "session-booking",
+    "question",
+    "answer",
+    "about-us",
+    "legal"
+  ],
+  "preserveOperationalTables": [
+    "admin_*",
+    "up_*",
+    "strapi_*",
+    "i18n_*",
+    "upload_folders*"
+  ],
+  "preserveUniversityFields": [
+    "slug",
+    "document_id",
+    "created_by_id",
+    "updated_by_id"
+  ],
+  "preserveUniversityMediaFields": [
+    "card_logo"
+  ],
+  "draftOnlyBlogSlugs": [
+    "cat-2026-registration-opens-key-dates-and-eligibility",
+    "nirf-rankings-2026-released",
+    "geduconnect-partners-with-40-new-universities"
+  ],
+  "draftOnlyDetectedCopy": [
+    "seeded news entry",
+    "seeded press release entry",
+    "development seed"
+  ],
+  "editorialRules": {
+    "preserveLiteralTestimonials": true,
+    "preserveNumericValues": true,
+    "preserveInstitutionNames": true,
+    "preserveRecognitionValues": true,
+    "preserveDatesAndDuration": true,
+    "articleTypeBecomesBlog": true,
+    "onlyReviewedOverrides": true,
+    "numericPreservationScope": "Structured factual values remain exact; unsupported numeric marketing claims may be removed only by an explicit reviewed editorial manifest.",
+    "universityHighlights": {
+      "component": "home.highlights",
+      "fields": [
+        "key",
+        "value"
+      ],
+      "scope": "Imported university-owned components only",
+      "reviewManifest": "catalogue-university-highlight-rewrites.json"
+    }
+  }
+}

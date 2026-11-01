@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_common_bullet_lists",
+  "info": {
+    "displayName": "Bullet List",
+    "description": "A titled flat list. Prose bullets lose per-item identity; these keep it."
+  },
+  "options": {},
+  "attributes": {
+    "name": { "type": "string" },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.bullet-item"
+    }
+  }
+}

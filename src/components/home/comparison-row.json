@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_home_comparison_rows",
+  "info": {
+    "displayName": "Comparison Row",
+    "description": "A factor in the education guidance comparison"
+  },
+  "options": {},
+  "attributes": {
+    "factor": {
+      "type": "string",
+      "required": true
+    },
+    "gedu_value": {
+      "type": "string",
+      "required": true
+    },
+    "competitor_value": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

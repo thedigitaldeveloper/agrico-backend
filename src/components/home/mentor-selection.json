@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_home_mentor_selections",
+  "info": {
+    "displayName": "Selected mentor",
+    "description": "One published item in the chosen display order."
+  },
+  "options": {},
+  "attributes": {
+    "mentor": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::mentor-profile.mentor-profile"
+    }
+  }
+}

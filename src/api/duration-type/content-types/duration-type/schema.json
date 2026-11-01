@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "duration_types",
+  "info": {
+    "singularName": "duration-type",
+    "pluralName": "duration-types",
+    "displayName": "Duration Type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    }
+  }
+}

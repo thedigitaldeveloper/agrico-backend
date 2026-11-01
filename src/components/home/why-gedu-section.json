@@ -1,0 +1,59 @@
+{
+  "collectionName": "components_home_why_gedu_sections",
+  "info": {
+    "displayName": "Why Agrico Section",
+    "icon": "shield",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "default": "The Agrico Advantage"
+    },
+    "heading": {
+      "type": "string",
+      "default": "Explore your options with Agrico"
+    },
+    "description": {
+      "type": "text"
+    },
+    "micro_badges": {
+      "type": "json"
+    },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.why-gedu-card"
+    },
+    "comparison_heading": {
+      "type": "string",
+      "default": "How Agrico helps you choose"
+    },
+    "comparison_badge": {
+      "type": "string",
+      "default": "Admission guidance"
+    },
+    "comparison_matrix": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.comparison-row"
+    },
+    "primary_cta_label": {
+      "type": "string",
+      "default": "Compare universities"
+    },
+    "primary_cta_link": {
+      "type": "string",
+      "default": "/compare"
+    },
+    "secondary_cta_label": {
+      "type": "string",
+      "default": "How We Verify Universities"
+    },
+    "secondary_cta_link": {
+      "type": "string",
+      "default": "/about-us"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_common_title_descriptions",
+  "info": {
+    "displayName": "Title Description",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "News",
+        "Similar Colleges",
+        "Similar Programs",
+        "Categories",
+        "stream",
+        "university",
+        "press-release",
+        "blogs"
+      ]
+    }
+  }
+}

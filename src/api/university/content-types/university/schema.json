@@ -1,0 +1,236 @@
+{
+  "kind": "collectionType",
+  "collectionName": "universities",
+  "info": {
+    "singularName": "university",
+    "pluralName": "universities",
+    "displayName": "University",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "card_logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "description": "Official square university mark for programme cards and compact university identities. Keep the full wordmark in logo."
+    },
+    "brochure": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "country": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "pincode": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "establish": {
+      "type": "date"
+    },
+    "established_year": {
+      "type": "integer",
+      "min": 1800,
+      "max": 2100
+    },
+    "view_button_text": {
+      "type": "string"
+    },
+    "apply_button_text": {
+      "type": "string"
+    },
+    "show_apply_button": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "rating": {
+      "type": "decimal",
+      "min": 0,
+      "max": 5
+    },
+    "highlights": {
+      "displayName": "highlights",
+      "type": "component",
+      "repeatable": true,
+      "component": "home.highlights"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "university_contents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::university-content.university-content",
+      "mappedBy": "university"
+    },
+    "affiliations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::affiliation.affiliation"
+    },
+    "approvals": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::approval.approval"
+    },
+    "course_modes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course-mode.course-mode"
+    },
+    "course_types": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course-type.course-type"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course.course"
+    },
+    "exams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::exam.exam"
+    },
+    "institute_tiers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::institute-tier.institute-tier"
+    },
+    "ownership_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::ownership-type.ownership-type"
+    },
+    "rankings": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::ranking.ranking"
+    },
+    "streams": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::stream.stream"
+    },
+    "tag": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tag.tag"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "show_similar_universities": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "programs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::program.program",
+      "mappedBy": "universities"
+    },
+    "position": {
+      "type": "integer"
+    },
+    "faculties": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::faculty.faculty",
+      "mappedBy": "university"
+    },
+    "recruiters": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recruiter.recruiter",
+      "inversedBy": "universities"
+    },
+    "banners": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.hero-slide"
+    },
+    "program_fees": {
+      "type": "component",
+      "repeatable": true,
+      "component": "college.program-fee"
+    },
+    "whatsapp_number": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "toll_free_number": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "fav_icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "agriculture_content": {
+      "type": "json",
+      "description": "Structured agriculture profile with headings, facts, tables, sources and contextual links."
+    },
+    "editorial_posts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::blog.blog",
+      "mappedBy": "universities"
+    }
+  }
+}

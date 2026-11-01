@@ -1,0 +1,206 @@
+{
+  "kind": "singleType",
+  "collectionName": "homes",
+  "info": {
+    "singularName": "home",
+    "pluralName": "homes",
+    "displayName": "Homepage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "hero_slides": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.hero-slide"
+    },
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "home.banner",
+        "common.title-description",
+        "common.citywise",
+        "home.testimonial-section",
+        "home.whychooseus",
+        "home.key-stats-section",
+        "common.rich-text",
+        "common.custom-section",
+        "common.html-section"
+      ]
+    },
+    "trending_programs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.trending-item"
+    },
+    "stats_strip": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.stat-item"
+    },
+    "why_gedu_cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.why-gedu-card"
+    },
+    "comparison_matrix": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.comparison-row"
+    },
+    "how_it_works_steps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.step-card"
+    },
+    "faqs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.faq-item"
+    },
+    "bottom_banner": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.cta-banner"
+    },
+    "course_finder": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.course-finder-config"
+    },
+    "why_gedu": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.why-gedu-section"
+    },
+    "how_it_works": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.how-it-works-section"
+    },
+    "universities_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.section-header"
+    },
+    "compare_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.section-header"
+    },
+    "testimonials_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.section-header"
+    },
+    "mentors_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.section-header"
+    },
+    "scholarships_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.section-header"
+    },
+    "exams_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.section-header"
+    },
+    "qna_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.section-header"
+    },
+    "faqs_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.section-header"
+    },
+    "articles_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.section-header"
+    },
+    "featured_offerings": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.offering-selection"
+    },
+    "featured_universities": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.university-selection"
+    },
+    "spotlight_offering": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.spotlight-offering"
+    },
+    "comparison_offerings": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.offering-selection"
+    },
+    "comparison_universities": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.university-selection"
+    },
+    "service_links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.service-link"
+    },
+    "programs_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.section-header"
+    },
+    "news_header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.section-header"
+    },
+    "section_visibility": {
+      "type": "json",
+      "description": "Optional section switches. Use false to hide a section: programmes, universities, compare, spotlight, services, howItWorks, testimonials, mentors, faq, news, blogs, callback. Unset keys remain visible."
+    },
+    "featured_news": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.post-selection"
+    },
+    "featured_blogs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.post-selection"
+    },
+    "featured_mentors": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.mentor-selection"
+    },
+    "featured_testimonials": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.testimonial-selection"
+    },
+    "section_display": {
+      "type": "json",
+      "description": "Feed selection mode by section: news, blogs, mentors, testimonials. Set a key to \"curated\" to use its ordered selected items (an empty selection shows none), or \"latest\" for the feed. Unset keys use latest. section_visibility still controls whether a section is shown."
+    }
+  }
+}

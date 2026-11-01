@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "course_modes",
+  "info": {
+    "singularName": "course-mode",
+    "pluralName": "course-modes",
+    "displayName": "Course Mode"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    }
+  }
+}
