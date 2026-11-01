@@ -42,6 +42,7 @@ const SEO = {
  */
 const CONTENT_ZONE = {
   on: {
+    'common.html-section': { populate: '*' },
     'common.rich-text': { populate: '*' },
     'common.title-description': { populate: '*' },
     'college.fee-structure': { populate: '*' },
