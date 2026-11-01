@@ -80,6 +80,25 @@ require('dotenv').config({ path: 'd:/agrico-backend/.env' });
 .ag-publication-cards:has(> .ag-publication-card:only-child) {
   grid-template-columns: 1fr !important;
 }
+.ag-publication-gallery:has(> figure:only-child) {
+  grid-template-columns: 1fr !important;
+  max-width: 680px !important;
+}
+.ag-publication-gallery:has(> figure:only-child) img {
+  height: 290px !important;
+}
+.ag-publication-gallery figure {
+  border: 1px solid #d8e4d4 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  background: #fafcf8 !important;
+  padding: 10px !important;
+}
+.ag-publication-gallery figcaption {
+  font-size: 12px !important;
+  color: #4f6657 !important;
+  margin-top: 8px !important;
+}
 @media (max-width: 640px) {
   .ag-pc-highlights-grid,
   .ag-pc-practical-grid,
