@@ -523,9 +523,9 @@ ${items}
 
 function renderToc(items) {
   const list = items.map(([id, label]) => `      <li><a href="#${id}">${esc(label)}</a></li>`).join('\n');
-  return `  <nav class="ag-publication-toc" aria-label="On this page">
+  return `  <nav class="ag-publication-toc" aria-label="Table of Contents">
     <p class="ag-eyebrow">On this page</p>
-    <h2>Find what you need</h2>
+    <h2>Table of Contents</h2>
     <ol>
 ${list}
     </ol>

@@ -11,12 +11,28 @@ require('dotenv').config({ path: 'd:/agrico-backend/.env' });
     port: process.env.DATABASE_PORT || 3306
   });
 
-  // Read the updated agrico-programme-content.css from frontend
   const updatedCss = fs.readFileSync('d:/agrico-frontend/src/components/agrico/agrico-programme-content.css', 'utf8') + `
 .ag-eyebrow {
   display: flex !important;
   align-items: center !important;
   gap: 10px !important;
+}
+.ag-publication-toc ol,
+.ag-publication-sources {
+  list-style: decimal !important;
+  padding-left: 22px !important;
+}
+.ag-publication-toc li,
+.ag-publication-sources li {
+  display: list-item !important;
+  list-style-type: decimal !important;
+  padding-left: 4px !important;
+}
+.ag-publication-toc li::marker,
+.ag-publication-sources li::marker {
+  color: #215945;
+  font-weight: 700;
+  font-size: 13px;
 }
 .ag-publication-table table {
   width: 100% !important;
@@ -37,22 +53,19 @@ require('dotenv').config({ path: 'd:/agrico-backend/.env' });
 }
 `;
 
-  // Clean up orphaned components_common_html_sections not referenced by university_contents_cmps
-  await conn.query(`
-    DELETE FROM components_common_html_sections
-    WHERE id NOT IN (
-      SELECT cmp_id FROM university_contents_cmps WHERE component_type = 'common.html-section'
-    )
-  `);
-
   const [rows] = await conn.query('SELECT id, code FROM components_common_html_sections');
-  console.log(`Updating CSS in ${rows.length} active components_common_html_sections rows...`);
+  console.log(`Updating TOC heading & numbered list CSS in ${rows.length} active components_common_html_sections rows...`);
 
   let updated = 0;
   for (const r of rows) {
     const codeObj = typeof r.code === 'string' ? JSON.parse(r.code) : r.code;
     if (codeObj && typeof codeObj === 'object') {
       codeObj.css = updatedCss;
+      if (typeof codeObj.html === 'string') {
+        codeObj.html = codeObj.html
+          .replace(/<h2>Find what you need<\/h2>/g, '<h2>Table of Contents</h2>')
+          .replace(/aria-label="On this page"/g, 'aria-label="Table of Contents"');
+      }
       await conn.query('UPDATE components_common_html_sections SET code = ? WHERE id = ?', [JSON.stringify(codeObj), r.id]);
       updated++;
     }
@@ -61,4 +74,3 @@ require('dotenv').config({ path: 'd:/agrico-backend/.env' });
   console.log(`Successfully updated ${updated} HTML section rows across all Universities, Programmes, Articles, News & Blogs.`);
   await conn.end();
 })();
-
