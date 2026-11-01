@@ -500,29 +500,16 @@ function getSources(data) {
   }));
 }
 
-function renderRefs(sources, count = 2) {
-  const subset = sources.slice(0, Math.min(count, sources.length));
-  if (!subset.length) return '';
-  return `<p class="ag-publication-refs">Sources:${subset.map(s => `<a href="#source-${s.id}">[${s.num}]</a>`).join('')}</p>`;
+function renderRefs() {
+  return '';
 }
 
-function renderSourcesSection(sources, programmeName) {
-  const items = sources.map(s => `      <li id="source-${s.id}">
-        <a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer"><span>${esc(s.title)}</span></a>
-        <p>${esc(s.kind)} · Checked ${esc(s.checked_on)} · ${esc(s.notes)}</p>
-      </li>`).join('\n');
-  return `  <section id="sources-review" class="ag-publication-section">
-    <p class="ag-eyebrow">Official sources &amp; regulatory review</p>
-    <h2>Verified academic and regulatory sources for ${esc(programmeName)}</h2>
-    <p><span>Every section on this page is compiled from official regulatory committees, national examination authorities, and participating agricultural university prospectuses. Applicants should always cross-check current session dates and campus-specific seat notifications on the primary portals listed below.</span></p>
-    <ol class="ag-publication-sources">
-${items}
-    </ol>
-  </section>`;
+function renderSourcesSection() {
+  return '';
 }
 
 function renderToc(items) {
-  const list = items.map(([id, label]) => `      <li><a href="#${id}">${esc(label)}</a></li>`).join('\n');
+  const list = items.filter(([id]) => id !== 'sources-review').map(([id, label]) => `      <li><a href="#${id}">${esc(label)}</a></li>`).join('\n');
   return `  <nav class="ag-publication-toc" aria-label="Table of Contents">
     <p class="ag-eyebrow">On this page</p>
     <h2>Table of Contents</h2>

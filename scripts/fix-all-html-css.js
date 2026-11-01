@@ -17,6 +17,13 @@ require('dotenv').config({ path: 'd:/agrico-backend/.env' });
   align-items: center !important;
   gap: 10px !important;
 }
+#sources-review,
+.ag-publication-refs,
+.ag-publication-sources,
+.ag-pc-sources-block,
+.ag-publication-toc li:has(a[href="#sources-review"]) {
+  display: none !important;
+}
 .ag-pc-highlights-grid,
 .ag-pc-practical-grid,
 .ag-pc-timeline:not(:has(.ag-pc-chips)),
@@ -80,7 +87,10 @@ require('dotenv').config({ path: 'd:/agrico-backend/.env' });
       if (typeof codeObj.html === 'string') {
         codeObj.html = codeObj.html
           .replace(/<h2>Find what you need<\/h2>/g, '<h2>Table of Contents</h2>')
-          .replace(/aria-label="On this page"/g, 'aria-label="Table of Contents"');
+          .replace(/aria-label="On this page"/g, 'aria-label="Table of Contents"')
+          .replace(/\s*<section id="sources-review"[\s\S]*?<\/section>/g, '')
+          .replace(/\s*<p class="ag-publication-refs">[\s\S]*?<\/p>/g, '')
+          .replace(/\s*<li><a href="#sources-review">[\s\S]*?<\/li>/g, '');
       }
       await conn.query('UPDATE components_common_html_sections SET code = ? WHERE id = ?', [JSON.stringify(codeObj), r.id]);
       updated++;
