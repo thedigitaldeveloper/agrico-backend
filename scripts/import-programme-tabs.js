@@ -267,10 +267,16 @@ const COMMON_CSS = `
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  padding-left: 0 !important;
   font-size: 14px !important;
   line-height: 1.65 !important;
   color: #304d3f !important;
   margin: 0 !important;
+}
+.ag-pc-checklist li::before,
+.ag-pc-eligibility-list li::before {
+  content: none !important;
+  display: none !important;
 }
 .ag-pc-check-icon {
   flex-shrink: 0;
