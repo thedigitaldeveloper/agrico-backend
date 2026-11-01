@@ -17,6 +17,22 @@ require('dotenv').config({ path: 'd:/agrico-backend/.env' });
   align-items: center !important;
   gap: 10px !important;
 }
+.ag-pc-highlights-grid,
+.ag-pc-practical-grid,
+.ag-pc-timeline:not(:has(.ag-pc-chips)),
+.ag-publication-cards {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 16px !important;
+}
+@media (max-width: 640px) {
+  .ag-pc-highlights-grid,
+  .ag-pc-practical-grid,
+  .ag-pc-timeline:not(:has(.ag-pc-chips)),
+  .ag-publication-cards {
+    grid-template-columns: 1fr !important;
+  }
+}
 .ag-publication-toc ol,
 .ag-publication-sources {
   list-style: decimal !important;
