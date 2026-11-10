@@ -1,7 +1,23 @@
 const mysql = require('mysql2/promise');
 const fs = require('fs');
+const path = require('path');
 const crypto = require('crypto');
-require('dotenv').config({ path: 'd:/agrico-backend/.env' });
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+
+function resolveContentDir() {
+  const candidates = [
+    process.env.AGRICO_CONTENT_DIR,
+    path.resolve(__dirname, '../../agrico-frontend/docs/content/universities-2026-10-30'),
+    'd:/agrico-frontend/docs/content/universities-2026-10-30',
+    '/home/agrishodh/htdocs/agrishodh.com/docs/content/universities-2026-10-30',
+    '/home/agrishodh/agrico-frontend/docs/content/universities-2026-10-30',
+    path.resolve(__dirname, '../content-sync'),
+  ].filter(Boolean);
+  for (const dir of candidates) {
+    if (fs.existsSync(path.join(dir, 'publication.json'))) return dir;
+  }
+  throw new Error('Could not locate universities-2026-10-30 content directory. Set AGRICO_CONTENT_DIR.');
+}
 
 function genDocId() {
   return crypto.randomBytes(12).toString('hex');
@@ -31,14 +47,15 @@ function cleanNextImageUrls(html) {
     port: Number(process.env.DATABASE_PORT || 3306),
   });
 
+  const contentDir = resolveContentDir();
   const pub = JSON.parse(
-    fs.readFileSync('d:/agrico-frontend/docs/content/universities-2026-10-30/publication.json', 'utf8')
+    fs.readFileSync(path.join(contentDir, 'publication.json'), 'utf8')
   );
   const contentPlan = JSON.parse(
-    fs.readFileSync('d:/agrico-frontend/docs/content/universities-2026-10-30/cms-content-import-plan.json', 'utf8')
+    fs.readFileSync(path.join(contentDir, 'cms-content-import-plan.json'), 'utf8')
   );
   const htmlPlan = JSON.parse(
-    fs.readFileSync('d:/agrico-frontend/docs/content/universities-2026-10-30/cms-html-content-import-plan.json', 'utf8')
+    fs.readFileSync(path.join(contentDir, 'cms-html-content-import-plan.json'), 'utf8')
   );
 
   const now = new Date('2026-11-01T10:00:00.000Z');
@@ -333,7 +350,7 @@ function cleanNextImageUrls(html) {
 
   // 5. Link all 74 universities to their programmes in `programs_universities_lnk`
   const rawPack = JSON.parse(
-    fs.readFileSync('d:/agrico-frontend/docs/content/universities-2026-10-30/institutions.json', 'utf8')
+    fs.readFileSync(path.join(contentDir, 'institutions.json'), 'utf8')
   );
   const [progRows] = await conn.query('SELECT id, slug FROM programs');
   const progIdsBySlug = new Map();
