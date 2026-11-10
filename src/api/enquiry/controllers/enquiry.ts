@@ -60,9 +60,10 @@ export default factories.createCoreController('api::enquiry.enquiry', ({ strapi 
     const name = text(input.name, MAX.name);
     const email = text(input.email, MAX.email);
     const phone = text(input.phone, MAX.phone);
+    const rawSource = input.source === 'homepage-modal-callback' ? 'homepage-callback' : input.source;
     const source =
-      typeof input.source === 'string' && SOURCES.includes(input.source)
-        ? input.source
+      typeof rawSource === 'string' && SOURCES.includes(rawSource)
+        ? rawSource
         : 'application-form';
 
     if (!name) return ctx.badRequest('Name is required');

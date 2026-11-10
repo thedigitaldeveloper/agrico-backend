@@ -43,6 +43,7 @@ const SEO = {
 const CONTENT_ZONE = {
   on: {
     'common.html-section': { populate: '*' },
+    'common.custom-section': { populate: { image: IMAGE } },
     'common.rich-text': { populate: '*' },
     'common.title-description': { populate: '*' },
     'college.fee-structure': { populate: '*' },
@@ -87,14 +88,6 @@ const UNIVERSITY_CARD = {
 
 const UNIVERSITY_DETAIL = {
   ...UNIVERSITY_CARD,
-  /**
-   * Overrides the card's text-only approvals, because the detail page draws
-   * accreditation as trust-marks rather than chips. Written here and not on
-   * TAXONOMY: that constant is shared by some thirty relations, and Strapi
-   * rejects a populate naming an attribute the target lacks — a logo on
-   * TAXONOMY would 400 every read of streams, tags, levels and the rest.
-   * A listing of 24 universities also has no use for 24 sets of logo formats.
-   */
   approvals: { fields: ['name', 'slug'], populate: { logo: IMAGE } },
   image: IMAGE,
   banners: {
@@ -111,22 +104,11 @@ const UNIVERSITY_DETAIL = {
   institute_tiers: TAXONOMY,
   faculties: { populate: { photo: IMAGE }, sort: ['position:asc'] },
   recruiters: { populate: { logo: IMAGE } },
-  editorial_posts: {
-    fields: ['name', 'slug', 'description', 'type', 'dateTime', 'publishedAt'],
-    filters: { publishedAt: { $notNull: true } },
-    sort: ['dateTime:desc'],
-  },
-  /**
-   * What this university charges, per program. Rows on the university and
-   * not a record per university-and-program pair, so one university is one
-   * form — the difference between 155 screens and 1,550.
-   */
   program_fees: { populate: { program: { fields: ['name', 'slug'] } } },
-  /**
-   * The section *index* only. Bodies are fetched one at a time from
-   * university-content, so opening a university does not drag every tab's
-   * content across the wire.
-   */
+  editorial_posts: {
+    fields: ['name', 'slug', 'description', 'type', 'publishedAt'],
+    sort: ['publishedAt:desc'],
+  },
   university_contents: {
     fields: ['name', 'slug', 'secondary_slug', 'display_name', 'heading', 'position'],
     sort: ['position:asc', 'id:asc'],
@@ -145,13 +127,6 @@ const UNIVERSITY_HOMEPAGE = {
 
 // --- program ---------------------------------------------------------------
 
-/**
- * The one lookup that carries a nested relation.
- *
- * Undergraduate/postgraduate is recorded once on the course rather than on
- * every program under it, so a program only knows its level through here — one
- * extra join, against re-stating the level on twelve programs per course.
- */
 const COURSE = { fields: ['name', 'slug'], populate: { level: TAXONOMY } } as const;
 
 const PROGRAM_CARD = {
@@ -181,7 +156,8 @@ const PROGRAM_DETAIL = {
     },
   },
   university_contents: {
-    fields: ['name', 'slug', 'secondary_slug', 'display_name', 'heading'],
+    fields: ['name', 'slug', 'secondary_slug', 'display_name', 'heading', 'position'],
+    sort: ['position:asc', 'id:asc'],
   },
 } satisfies Populate;
 
@@ -193,11 +169,6 @@ const PROGRAM_HOMEPAGE = {
 
 // --- course -----------------------------------------------------------
 
-/**
- * A course is the page a visitor lands on — "Online MBA" — and the programs
- * beneath it are what they choose between. The card is for rails and menus,
- * so it stops at the icon and the two lookups.
- */
 const COURSE_CARD = {
   icon: IMAGE,
   stream: TAXONOMY,
@@ -225,7 +196,8 @@ const EXAMINATION_DETAIL = {
   important_links: { populate: '*' },
   universities: { populate: UNIVERSITY_CARD },
   university_contents: {
-    fields: ['name', 'slug', 'secondary_slug', 'display_name', 'heading'],
+    fields: ['name', 'slug', 'secondary_slug', 'display_name', 'heading', 'position'],
+    sort: ['position:asc', 'id:asc'],
   },
 } satisfies Populate;
 
@@ -235,7 +207,8 @@ const SCHEME_DETAIL = {
   ...SCHEME_CARD,
   seo: SEO,
   university_contents: {
-    fields: ['name', 'slug', 'secondary_slug', 'display_name', 'heading'],
+    fields: ['name', 'slug', 'secondary_slug', 'display_name', 'heading', 'position'],
+    sort: ['position:asc', 'id:asc'],
   },
 } satisfies Populate;
 
@@ -247,14 +220,11 @@ const BLOG_CARD = {
 
 const BLOG_DETAIL = {
   ...BLOG_CARD,
-  body_html: true,
   seo: SEO,
   download: FILE,
   courses: TAXONOMY,
   exams: TAXONOMY,
   streams: TAXONOMY,
-  universities: TAXONOMY,
-  programs: TAXONOMY,
 } satisfies Populate;
 
 // --- Q&A -------------------------------------------------------------------
@@ -267,10 +237,6 @@ const QUESTION_CARD = {
 const QUESTION_DETAIL = {
   ...QUESTION_CARD,
   universities: { fields: ['name', 'slug'] },
-  /**
-   * `author_email` is marked private in the schema, so Strapi strips it from
-   * every response regardless of what is populated here.
-   */
   answers: {
     fields: ['body', 'author_name', 'is_expert', 'is_accepted', 'createdAt'],
     sort: ['is_accepted:desc', 'createdAt:asc'],
@@ -289,10 +255,6 @@ const CONTENT_DETAIL = {
 
 // --- testimonials ----------------------------------------------------------
 
-/**
- * One preset, no detail form: a quote has no page of its own. The university is
- * populated so the card can credit where the student actually studied.
- */
 const TESTIMONIAL_CARD = {
   photo: IMAGE,
   university: { fields: ['name', 'slug'] },
@@ -309,11 +271,6 @@ const MENTOR_CARD = {
 const MENTOR_DETAIL = {
   ...MENTOR_CARD,
   seo: SEO,
-  /**
-   * Availability is public so the booking form can show real slots. The linked
-   * `user` is deliberately absent — a mentor's account email is not something
-   * the public listing should carry.
-   */
   availability: { populate: '*' },
 } satisfies Populate;
 
@@ -384,16 +341,6 @@ export function withPopulate(populate: Populate, homepage?: Populate): Core.Midd
       ...(homepage ? query : ctx.query),
       populate: (homepage && view === 'homepage' ? homepage : populate) as never,
     };
-    // A listing needs card fields, not every university's complete tab library.
-    // Detail and by-slug reads retain the full structured editorial document.
-    const collection = ctx.path.match(/^\/api\/(universities|blogs)\/?$/)?.[1];
-    if (collection && !ctx.query.fields) {
-      const uid = collection === 'universities' ? 'api::university.university' : 'api::blog.blog';
-      const attributes = strapi.contentType(uid).attributes as Record<string, { type: string; private?: boolean }>;
-      ctx.query.fields = Object.entries(attributes)
-        .filter(([name, attribute]) => !['agriculture_content', 'editorial_content'].includes(name) && !attribute.private && !['relation', 'media', 'component', 'dynamiczone'].includes(attribute.type))
-        .map(([name]) => name);
-    }
     await anonymousPublished(ctx, next);
   };
 }

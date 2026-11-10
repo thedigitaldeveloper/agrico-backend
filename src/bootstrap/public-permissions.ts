@@ -93,7 +93,11 @@ const PUBLIC_WRITE_ONLY = ['enquiry'] as const;
 const PUBLIC_CREATE = ['question', 'answer'] as const;
 
 /** Plugin routes the site calls anonymously. */
-const PUBLIC_PLUGIN_ACTIONS = ['plugin::fuzzy-search.searchController.search'] as const;
+const PUBLIC_PLUGIN_ACTIONS = [
+  'plugin::fuzzy-search.searchController.search',
+  // A refresh token is its credential; renewal must work after access JWT expiry.
+  'plugin::users-permissions.auth.refresh',
+] as const;
 
 /** Custom read actions beyond the generated find/findOne/findBySlug set. */
 const EXTRA_READ_ACTIONS = [
@@ -126,6 +130,7 @@ const AUTHENTICATED_ONLY_ACTIONS = [
   // Account.
   'plugin::users-permissions.user.me',
   'plugin::users-permissions.auth.changePassword',
+  'plugin::users-permissions.auth.logout',
 ] as const;
 
 function publicReadActions(): string[] {

@@ -640,7 +640,7 @@ ${highlights}
     </div>
     <div class="ag-publication-subsection">
       <h3>Academic Scope &amp; Institutional Delivery</h3>
-      <p><span>Across India’s agricultural education network, ${esc(data.name)} is delivered through a combination of classroom lectures, wet-laboratory experiments, instructional farm plots, and supervised field attachments. Students can explore detailed breakdowns across our dedicated sub-pages: <a href="/${esc(data.slug)}/curriculum">Curriculum &amp; Semester Syllabus</a>, <a href="/${esc(data.slug)}/eligibility">Eligibility &amp; Entrance Exams</a>, <a href="/${esc(data.slug)}/fees">Fee Structure &amp; Scholarships</a>, <a href="/${esc(data.slug)}/universities">Participating Universities</a>, and <a href="/${esc(data.slug)}/careers">Career Pathways</a>.</span></p>
+      <p><span>Across India’s agricultural education network, ${esc(data.name)} is delivered through a combination of classroom lectures, wet-laboratory experiments, instructional farm plots, and supervised field attachments. Students can explore detailed breakdowns across our dedicated sub-pages: <a href="/${esc(data.slug)}-curriculum">Curriculum &amp; Semester Syllabus</a>, <a href="/${esc(data.slug)}-eligibility">Eligibility &amp; Entrance Exams</a>, <a href="/${esc(data.slug)}-fees">Fee Structure &amp; Scholarships</a>, <a href="/${esc(data.slug)}-universities">Participating Universities</a>, and <a href="/${esc(data.slug)}-careers">Career Pathways</a>.</span></p>
     </div>
     ${renderRefs(sources, 3)}
   </section>
@@ -686,7 +686,7 @@ ${whoApply}
     <div class="ag-pc-timeline">
 ${stages}
     </div>
-    <p><span>For a complete semester-by-semester subject breakdown, credit load distribution, elective tracks, and grading rules, visit the dedicated <a href="/${esc(data.slug)}/curriculum">${esc(data.short_name || data.name)} Curriculum &amp; Syllabus page</a>.</span></p>
+    <p><span>For a complete semester-by-semester subject breakdown, credit load distribution, elective tracks, and grading rules, visit the dedicated <a href="/${esc(data.slug)}-curriculum">${esc(data.short_name || data.name)} Curriculum &amp; Syllabus page</a>.</span></p>
     ${renderRefs(sources, 2)}
   </section>
 
@@ -705,7 +705,7 @@ ${practicals}
     <ul class="ag-pc-checklist">
 ${eligPoints}
     </ul>
-    <p><span>Read the full breakdown of qualifying subjects, age limits, reservation relaxations, and document checklists on the <a href="/${esc(data.slug)}/eligibility">${esc(data.short_name || data.name)} Eligibility &amp; Admission page</a>.</span></p>
+    <p><span>Read the full breakdown of qualifying subjects, age limits, reservation relaxations, and document checklists on the <a href="/${esc(data.slug)}-eligibility">${esc(data.short_name || data.name)} Eligibility &amp; Admission page</a>.</span></p>
     ${renderRefs(sources, 3)}
   </section>
 
@@ -761,7 +761,7 @@ ${routes}
         </tbody>
       </table>
     </div>
-    <p><span>Compare component-wise semester costs, ICAR National Talent Scholarships (NTS), and state fee-reimbursement schemes on our <a href="/${esc(data.slug)}/fees">${esc(data.short_name || data.name)} Fees &amp; Scholarships page</a>.</span></p>
+    <p><span>Compare component-wise semester costs, ICAR National Talent Scholarships (NTS), and state fee-reimbursement schemes on our <a href="/${esc(data.slug)}-fees">${esc(data.short_name || data.name)} Fees &amp; Scholarships page</a>.</span></p>
   </section>
 
   <section id="accredited-colleges" class="ag-publication-section">
@@ -771,7 +771,7 @@ ${routes}
     <div class="ag-publication-cards">
 ${uniCards}
     </div>
-    <p><span>View the full institutional comparison table and ICAR accreditation checklist on the <a href="/${esc(data.slug)}/universities">${esc(data.short_name || data.name)} Colleges &amp; Universities page</a>.</span></p>
+    <p><span>View the full institutional comparison table and ICAR accreditation checklist on the <a href="/${esc(data.slug)}-universities">${esc(data.short_name || data.name)} Colleges &amp; Universities page</a>.</span></p>
   </section>
 
   <section id="career-pathways" class="ag-publication-section">
@@ -792,7 +792,7 @@ ${rolesRows}
         </tbody>
       </table>
     </div>
-    <p><span>Explore government recruitment exams (IBPS AFO, State PSC ADO, NABARD, FCI), private recruiters, and higher study options on the <a href="/${esc(data.slug)}/careers">${esc(data.short_name || data.name)} Careers &amp; Placements page</a>.</span></p>
+    <p><span>Explore government recruitment exams (IBPS AFO, State PSC ADO, NABARD, FCI), private recruiters, and higher study options on the <a href="/${esc(data.slug)}-careers">${esc(data.short_name || data.name)} Careers &amp; Placements page</a>.</span></p>
   </section>
 
   <section id="faqs" class="ag-publication-section">
@@ -802,7 +802,7 @@ ${rolesRows}
     <div class="ag-detail-faqs">
 ${faqsHtml}
     </div>
-    <p><span>Have more questions? Browse our extended 16-question bank on the <a href="/${esc(data.slug)}/faqs">${esc(data.short_name || data.name)} FAQs page</a>.</span></p>
+    <p><span>Have more questions? Browse our extended 16-question bank on the <a href="/${esc(data.slug)}-faqs">${esc(data.short_name || data.name)} FAQs page</a>.</span></p>
   </section>
 
 ${renderSourcesSection(sources, data.name)}

@@ -18,6 +18,7 @@
     "verify:password-recovery": "node scripts/verify-password-recovery.cjs",
     "repair:university-drafts": "node scripts/repair-university-draft-relations.mjs",
     "seed:local": "tsx scripts/seed-rs-local.ts",
+    "seed:agrico": "tsx scripts/import-agrico-cms.ts",
     "configure:local": "tsx scripts/configure-rs-local.ts",
     "configure:home": "tsx scripts/configure-rs-home-local.ts",
     "configure:media": "tsx scripts/configure-rs-media-local.ts"
